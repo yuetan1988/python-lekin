@@ -1,0 +1,10 @@
+build/
+/dist/*
+**/__pycache__/
+**/.ipynb_checkpoints/
+**/.idea/*
+**/.pytest_cache/
+**/.DS_Store
+**/nohup.out
+
+/reference/*
