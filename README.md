@@ -1,16 +1,16 @@
 # python-lekin
 
-python-lekin is a **Flexible Job shop Scheduler System**, named after and inspired by [Lekin]().
+python-lekin is a **Flexible Job shop Scheduler Library**, named after and inspired by [Lekin](https://web-static.stern.nyu.edu/om/software/lekin/).
 
 
 ## Tutorial
 
-install
+**install**
 ```
 pip install python-lekin
 ```
 
-usage
+**usage**
 ```
 import lekin
 
@@ -20,6 +20,7 @@ import lekin
 
 
 ## Citation
+```
 @misc{python-lekin2022,
   author = {Longxing Tan},
   title = {python lekin},
@@ -28,3 +29,4 @@ import lekin
   journal = {GitHub repository},
   howpublished = {\url{https://github.com/longxingtan/python-lekin}},
 }
+```
