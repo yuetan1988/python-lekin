@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to python-lekin's documentation!
+python-lekin documentation
 ========================================
 
 python-lekin is a **Flexible Job shop Scheduler Library**, named after and inspired by `Lekin <https://web-static.stern.nyu.edu/om/software/lekin/>`_.
@@ -12,8 +12,7 @@ python-lekin is a **Flexible Job shop Scheduler Library**, named after and inspi
    :maxdepth: 2
    :caption: Contents:
 
-   tutorial
-   examples
+   tutorials
    GitHub <https://github.com/LongxingTan/python-lekin>
 
 
