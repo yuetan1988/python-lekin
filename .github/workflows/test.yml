@@ -63,4 +63,21 @@ jobs:
 
       - name: Run unittest
         shell: bash
-        run: poetry run python -m unittest discover -s ./tests  -p 'test_*.py'
+        run: poetry run coverage run -m unittest discover -s ./tests  -p 'test_*.py'
+
+      - name: Statistics
+        if: success()
+        run: |
+          poetry run coverage report -i
+          poetry run coverage xml -i
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        if: always()
+        continue-on-error: true
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: coverage.xml
+          flags: cpu, unittest
+          name: CPU-coverage
+          fail_ci_if_error: false

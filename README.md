@@ -13,6 +13,8 @@
 <img src="./docs/source/_static/logo.svg" width="490" align=center/>
 </h1><br>
 
+--------------------------------------------------------------------
+
 [![LICENSE][license-image]][license-url]
 [![PyPI Version][pypi-image]][pypi-url]
 [![Build Status][build-image]][build-url]
