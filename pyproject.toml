@@ -46,10 +46,10 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "License :: OSI Approved :: MIT License"]
-description = "Deep learning time series with TensorFlow"
-repository = "https://github.com/LongxingTan/Time-series-prediction"
-documentation = "https://time-series-prediction.readthedocs.io"
-homepage = "https://time-series-prediction.readthedocs.io"
+description = "Flexible job shop scheduler in Python"
+repository = "https://github.com/LongxingTan/python-lekin"
+documentation = "https://python-lekin.readthedocs.io"
+homepage = "https://python-lekin.readthedocs.io"
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
