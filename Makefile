@@ -15,4 +15,10 @@ style:
 test:
 	python -m unittest
 
+# run tests for the docs
+
+docs:
+	make -C docs clean M=$(shell pwd)
+	make -C docs html M=$(shell pwd)
+
 # release
