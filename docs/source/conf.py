@@ -23,7 +23,6 @@ SOURCE_PATH = Path(os.path.dirname(__file__))  # noqa # docs source
 PROJECT_PATH = SOURCE_PATH.joinpath("../..")  # noqa # project root
 
 
-
 # -- Project information -----------------------------------------------------
 
 project = "python-lekin"
@@ -82,4 +81,3 @@ shutil.copy(
     "../../CHANGELOG.md",
     "CHANGELOG.md",
 )
-
