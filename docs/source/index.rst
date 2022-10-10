@@ -5,15 +5,21 @@
 
 python-lekin documentation
 ========================================
+.. raw:: html
 
-python-lekin is a **Flexible Job shop Scheduler Library**, named after and inspired by `Lekin <https://web-static.stern.nyu.edu/om/software/lekin/>`_.
+   <a class="github-button" href="https://github.com/LongxingTan/python-lekin" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star LongxingTan/python-lekin on GitHub">GitHub</a>
+
+
+**python-lekin** is a Flexible Job shop Scheduler Library, named after and inspired by `Lekin <https://web-static.stern.nyu.edu/om/software/lekin/>`_.
 
 .. toctree::
-   :maxdepth: 2s
+   :maxdepth: 5
    :caption: Contents:
 
    tutorials
+   models
    application
+   CHANGELOG
    GitHub <https://github.com/LongxingTan/python-lekin>
 
 
