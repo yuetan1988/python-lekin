@@ -47,8 +47,8 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "License :: OSI Approved :: MIT License"]
 description = "Deep learning time series with TensorFlow"
-repository = "https://github.com/LongxingTan/Time-series-prediction"
-documentation = "https://time-series-prediction.readthedocs.io"
+repository = "https://github.com/LongxingTan/python-lekin"
+documentation = "https://python-lekin.readthedocs.io"
 homepage = "https://time-series-prediction.readthedocs.io"
 
 [tool.poetry.dependencies]
