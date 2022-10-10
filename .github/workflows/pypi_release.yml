@@ -5,7 +5,7 @@ name: PyPi Release
 
 on:
   push:
-    branches: [master]
+    branches: [master, main]
   release:
     types: [created]
 
