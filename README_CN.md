@@ -24,7 +24,8 @@
 
 **[Documentation](https://python-lekin.readthedocs.io)** | **[Tutorials](https://python-lekin.readthedocs.io/en/latest/tutorials.html)** | **[Release Notes](https://python-lekin.readthedocs.io/en/latest/CHANGELOG.html)** | **[中文](https://github.com/LongxingTan/python-lekin/blob/master/README_CN.md)**
 
-python-lekin是一个python车间排程与调度工具，名字来源于[教育开源工具Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)
+**python-lekin**是一个数字化车间智能排产调度工具，名字来源于[教育工具Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)
+
 
 ## 快速入门
 
