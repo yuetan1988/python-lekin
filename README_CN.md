@@ -29,13 +29,13 @@
 
 ## 快速入门
 
-**安装**
+### 安装
 
 ``` shell
 $ pip install python-lekin
 ```
 
-**使用**
+### 使用
 
 ``` python
 from lekin import Heuristics, Genetics
@@ -47,6 +47,11 @@ scheduler.solve(jobs, machines)
 
 scheduler.draw()
 ```
+### 数据解释
+- Job
+- Task
+- Machine
+- Route
 
 ## 示例
 
