@@ -19,6 +19,7 @@ python-lekin documentation
    tutorials
    models
    application
+   api
    CHANGELOG
    GitHub <https://github.com/LongxingTan/python-lekin>
 

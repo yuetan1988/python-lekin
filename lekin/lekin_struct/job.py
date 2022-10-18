@@ -1,9 +1,12 @@
 """
-Job:
-- processing time
-- due date
-- slack time remaining
-- critical ratio
+Struct Job
+
+property
+    - processing time
+    - due date
+    - slack time remaining
+    - critical ratio
+    - priority
 """
 
 

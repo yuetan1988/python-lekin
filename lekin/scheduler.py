@@ -1,12 +1,20 @@
+"""Flexible job shop scheduler"""
+
+import logging
+from lekin.datasets.check_data import check_data
+
+
 class Scheduler(object):
     def __init__(self, solver):
-        pass
+        self.solver = solver
 
     def run(self, jobs, machines, max_operation):
-        pass
+        self.solve(jobs, machines, max_operation)
+        self.evaluate()
+        self.draw()
 
-    def solve(self):
-        pass
+    def solve(self, jobs, machines, max_operations):
+        self.solver.solve(jobs, machines)
 
     def evaluate(self):
         pass

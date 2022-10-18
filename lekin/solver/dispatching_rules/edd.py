@@ -1,8 +1,8 @@
 """
-Shortest Processing Time
+Earliest Due Date
 """
 
 
-class SPT(object):
+class EDD(object):
     def __init__(self):
         pass

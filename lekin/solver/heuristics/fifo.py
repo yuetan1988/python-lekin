@@ -1,3 +1,0 @@
-"""
-First Come First Serve
-"""

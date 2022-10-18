@@ -1,3 +1,0 @@
-"""
-Earliest Due Date
-"""

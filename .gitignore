@@ -87,3 +87,4 @@ coverage.xml
 /reference/
 /data/
 /weights/
+/examples/data/*

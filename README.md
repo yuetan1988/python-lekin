@@ -46,7 +46,7 @@ from lekin import Scheduler
 
 solver = Heuristics('SPT')
 scheduler = Scheduler(solver)
-scheduler.solve(jobs, machines)
+scheduler.solve(job_list, machine_list)
 
 scheduler.draw()
 ```
