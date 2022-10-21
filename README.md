@@ -41,10 +41,10 @@ $ pip install lekin
 **Usage**
 
 ``` python
-from lekin import Heuristics, Genetics
+from lekin import Heuristics, Rule
 from lekin import Scheduler
 
-solver = Heuristics('SPT')
+solver = Rule('SPT')
 scheduler = Scheduler(solver)
 scheduler.solve(job_list, machine_list)
 
@@ -52,6 +52,18 @@ scheduler.draw()
 ```
 
 ## Examples
+
+- dispatching rules
+    - [SPT]()
+
+- heuristics
+    - [local search]()
+    
+- operation search
+    - [or-tools]()
+    
+- reinforcement learning
+
 
 ## Citation
 ```

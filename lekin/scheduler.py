@@ -1,6 +1,7 @@
 """Flexible job shop scheduler"""
 
 import logging
+
 from lekin.datasets.check_data import check_data
 
 

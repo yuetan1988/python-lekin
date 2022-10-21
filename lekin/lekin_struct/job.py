@@ -1,5 +1,6 @@
 """
 Struct Job
+    - job/mo/operation/activity
 
 property
     - processing time
