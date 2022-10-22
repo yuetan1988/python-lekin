@@ -1,6 +1,4 @@
-"""
-First Come First Serve
-"""
+"""First Come First Serve"""
 
 
 class FIFO(object):

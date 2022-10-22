@@ -1,6 +1,4 @@
-"""
-Earliest Due Date
-"""
+"""Earliest Due Date"""
 
 
 class EDD(object):

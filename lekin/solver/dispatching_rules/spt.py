@@ -1,13 +1,4 @@
-"""
-Shortest Processing Time
-
-- task:
-
-- input:
-
-- outputs:
-
-"""
+"""Shortest Processing Time"""
 
 
 class SPT(object):
