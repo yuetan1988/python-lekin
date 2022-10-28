@@ -21,5 +21,3 @@ test:
 docs:
 	make -C docs clean M=$(shell pwd)
 	make -C docs html M=$(shell pwd)
-
-# release
