@@ -5,6 +5,7 @@ Struct Job
 property
     - processing time
     - due date
+    - weight
     - slack time remaining
     - critical ratio
     - priority

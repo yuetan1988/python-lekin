@@ -1,7 +1,9 @@
 [license-image]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
 [license-url]: https://opensource.org/licenses/Apache-2.0
-[pypi-image]: https://badge.fury.io/py/python-lekin.svg
-[pypi-url]: https://pypi.python.org/pypi/python-lekin
+[pypi-image]: https://badge.fury.io/py/lekin.svg
+[pypi-url]: https://pypi.python.org/pypi/lekin
+[pepy-image]: https://pepy.tech/badge/lekin
+[pepy-url]: https://pepy.tech/project/lekin
 [build-image]: https://github.com/LongxingTan/python-lekin/actions/workflows/test.yml/badge.svg?branch=master
 [build-url]: https://github.com/LongxingTan/python-lekin/actions/workflows/test.yml?query=branch%3Amaster
 [lint-image]: https://github.com/LongxingTan/python-lekin/actions/workflows/lint.yml/badge.svg?branch=master
@@ -19,6 +21,7 @@
 
 [![LICENSE][license-image]][license-url]
 [![PyPI Version][pypi-image]][pypi-url]
+[![Download][pepy-image]][pepy-url]
 [![Build Status][build-image]][build-url]
 [![Lint Status][lint-image]][lint-url]
 [![Docs Status][docs-image]][docs-url]
@@ -30,6 +33,7 @@
 **python-lekin** is a Flexible Job Shop Scheduler Library, named after and inspired by [Lekin](https://web-static.stern.nyu.edu/om/software/lekin/). As a core function in **APS (advanced planning and scheduler)**, it helps to improve factory efficiency.
 - accelerate by
 
+# DRATFING- NOT FINISHED AND DON'T USE IT NOW!
 ## Tutorial
 
 **Installation**
@@ -58,10 +62,10 @@ scheduler.draw()
 
 - heuristics
     - [local search]()
-    
+
 - operation search
     - [or-tools]()
-    
+
 - reinforcement learning
 
 
@@ -76,3 +80,6 @@ scheduler.draw()
   howpublished = {\url{https://github.com/longxingtan/python-lekin}},
 }
 ```
+
+## Reference
+- https://github.com/paulkastel/JobShopPRO

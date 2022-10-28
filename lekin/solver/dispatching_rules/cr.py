@@ -1,1 +1,1 @@
-"""Critical ratio"""
+"""Critical ratio rule"""
