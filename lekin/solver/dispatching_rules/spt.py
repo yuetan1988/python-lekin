@@ -1,6 +1,7 @@
 """Shortest Processing Time"""
 
 from sortedcollections import SortedDict
+from typing import List, Dict, Any, Callable, Optional, Tuple, Union
 
 
 class SPT(object):
@@ -10,7 +11,7 @@ class SPT(object):
         self.current_time_on_machines = {}
         self.jobs_list_to_export = []
 
-    def setup(self, job_list, machine_list):
+    def setup(self, job_list: List, machine_list: List):
         for machine in machine_list:
             # init for machine start time
             self.current_time_on_machines[machine.name] = 0
@@ -25,7 +26,7 @@ class SPT(object):
             self.waiting_operations[machine.name].sort(key=lambda j: j.duration)
         return
 
-    def solve(self, job_list, machine_list):
+    def solve(self, job_list: List, machine_list: List):
         self.setup(job_list, machine_list)
 
         self.time[0] = self.waiting_operations
