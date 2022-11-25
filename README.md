@@ -1,5 +1,6 @@
 [license-image]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
 [license-url]: https://opensource.org/licenses/Apache-2.0
+<<<<<<< HEAD
 [pypi-image]: https://badge.fury.io/py/lekin.svg
 [pypi-url]: https://pypi.python.org/pypi/lekin
 [pepy-image]: https://pepy.tech/badge/lekin
@@ -14,6 +15,16 @@
 [coverage-url]: https://codecov.io/github/longxingtan/python-lekin?branch=master
 [codeql-image]: https://github.com/longxingtan/python-lekin/actions/workflows/codeql-analysis.yml/badge.svg
 [codeql-url]: https://github.com/longxingtan/python-lekin/actions/workflows/codeql-analysis.yml
+=======
+[pypi-image]: https://badge.fury.io/py/tfts.svg
+[pypi-url]: https://pypi.python.org/pypi/tfts
+[build-image]: https://github.com/LongxingTan/Time-series-prediction/actions/workflows/test.yml/badge.svg?branch=master
+[build-url]: https://github.com/LongxingTan/Time-series-prediction/actions/workflows/test.yml?query=branch%3Amaster
+[lint-image]: https://github.com/LongxingTan/Time-series-prediction/actions/workflows/lint.yml/badge.svg
+[lint-url]: https://github.com/LongxingTan/Time-series-prediction/actions/workflows/lint.yml
+[docs-image]: https://readthedocs.org/projects/time-series-prediction/badge/?version=latest
+[docs-url]: https://time-series-prediction.readthedocs.io/en/latest/
+>>>>>>> bba1022 (update readme)
 
 <h1 align="center">
 <img src="./docs/source/_static/logo.svg" width="490" align=center/>
@@ -21,6 +32,7 @@
 
 [![LICENSE][license-image]][license-url]
 [![PyPI Version][pypi-image]][pypi-url]
+<<<<<<< HEAD
 [![Download][pepy-image]][pepy-url]
 [![Build Status][build-image]][build-url]
 [![Lint Status][lint-image]][lint-url]
@@ -29,6 +41,14 @@
 [![CodeQL Status][codeql-image]][codeql-url]
 
 **[Documentation](https://python-lekin.readthedocs.io)** | **[Tutorials](https://python-lekin.readthedocs.io/en/latest/tutorials.html)** | **[Release Notes](https://python-lekin.readthedocs.io/en/latest/CHANGELOG.html)** | **[中文](https://github.com/LongxingTan/python-lekin/blob/master/README_zh_CN.md)**
+=======
+[![Build Status][build-image]][build-url]
+[![Lint Status][lint-image]][lint-url]
+[![Docs Status][docs-image]][docs-url]
+
+python-lekin is a **Flexible Job Shop Scheduler Library**, named after and inspired by [Lekin](https://web-static.stern.nyu.edu/om/software/lekin/).
+As a core function in **APS (advanced planning and scheduler)**, it helps to improve factory efficiency. 
+>>>>>>> bba1022 (update readme)
 
 **python-lekin** is a Flexible Job Shop Scheduler Library, named after and inspired by [Lekin](https://web-static.stern.nyu.edu/om/software/lekin/). As a core function in **APS (advanced planning and scheduler)**, it helps to improve factory efficiency.
 - accelerate by
