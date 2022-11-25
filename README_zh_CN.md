@@ -22,7 +22,7 @@
 [![Docs Status][docs-image]][docs-url]
 [![Code Coverage][coverage-image]][coverage-url]
 
-**[Documentation](https://python-lekin.readthedocs.io)** | **[Tutorials](https://python-lekin.readthedocs.io/en/latest/tutorials.html)** | **[Release Notes](https://python-lekin.readthedocs.io/en/latest/CHANGELOG.html)** | **[中文](https://github.com/LongxingTan/python-lekin/blob/master/README_CN.md)**
+**[文档](https://python-lekin.readthedocs.io)** | **[教程](https://python-lekin.readthedocs.io/en/latest/tutorials.html)** | **[发布日志](https://python-lekin.readthedocs.io/en/latest/CHANGELOG.html)** | **[English](https://github.com/LongxingTan/python-lekin/blob/master/README.md)**
 
 **python-lekin**是一个数字化车间智能排产调度工具，名字来源于[教育工具Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)
 

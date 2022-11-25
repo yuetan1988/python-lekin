@@ -1,11 +1,11 @@
 """
-Struct Route/工艺流程
+
 """
 
 
-class Route(object):
+class Activity(object):
     def __init__(self):
-        self.name = ""
+        pass
 
     def __str__(self):
         return

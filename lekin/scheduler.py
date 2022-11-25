@@ -1,7 +1,8 @@
 """Flexible job shop scheduler"""
 
+from collections import OrderedDict
 import logging
-from typing import List, Dict, Any, Callable, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from lekin.datasets.check_data import check_data
 
