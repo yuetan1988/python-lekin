@@ -1,8 +1,7 @@
 """Shortest Processing Time"""
 
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
-
-from sortedcollections import SortedDict
+# from collections import sorteddict
 
 
 class SPT(object):
