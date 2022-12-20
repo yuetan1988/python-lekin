@@ -2,7 +2,7 @@
 [license-url]: https://opensource.org/licenses/Apache-2.0
 [pypi-image]: https://badge.fury.io/py/lekin.svg
 [pypi-url]: https://pypi.python.org/pypi/lekin
-[pepy-image]: https://pepy.tech/badge/lekin
+[pepy-image]: https://pepy.tech/badge/lekin/month
 [pepy-url]: https://pepy.tech/project/lekin
 [build-image]: https://github.com/LongxingTan/python-lekin/actions/workflows/test.yml/badge.svg?branch=master
 [build-url]: https://github.com/LongxingTan/python-lekin/actions/workflows/test.yml?query=branch%3Amaster
@@ -30,8 +30,11 @@
 
 **[Documentation](https://python-lekin.readthedocs.io)** | **[Tutorials](https://python-lekin.readthedocs.io/en/latest/tutorials.html)** | **[Release Notes](https://python-lekin.readthedocs.io/en/latest/CHANGELOG.html)** | **[中文](https://github.com/LongxingTan/python-lekin/blob/master/README_zh_CN.md)**
 
-**python-lekin** is a Flexible Job Shop Scheduler Library, named after and inspired by [Lekin](https://web-static.stern.nyu.edu/om/software/lekin/). As a core function in **APS (advanced planning and scheduler)**, it helps to improve factory efficiency.
+**python-lekin** is a rapid-to-implement and easy-to-use Flexible Job Shop Scheduler Library, named after and inspired by [Lekin](https://web-static.stern.nyu.edu/om/software/lekin/). As a core function in **APS (advanced planning and scheduler)**, it helps manufacturers optimize the allocation of raw materials and production capacity optimally to balance demand and capacity.
+
 - accelerate by
+- Changeover Optimization
+- Ready for demo, research and production
 
 # DRATFING- NOT FINISHED AND DON'T USE IT NOW!
 ## Tutorial
@@ -57,17 +60,28 @@ scheduler.draw()
 
 ## Examples
 
-- dispatching rules
+In real world, Lekin integrates with MES to deploy production plans on the shop floor. Integration with ERP system is also required to exchange information on demand, inventory, and production
+
+- Exhaustive search
+  - branch and bound
+
+- Construction heuristics
     - [SPT]()
 
-- heuristics
+- Meta heuristics
     - [local search]()
+      - [hill climbing]()
+      - [tabu search]()
+    - [evolutionary algorithms]()
+      - [genetic algorithms]()
 
-- operation search
+- Operation search
     - [or-tools]()
 
-- reinforcement learning
+- Reinforcement learning
 
+Metaheuristics combined with Construction
+Heuristics to initialize is the recommended choice.
 
 ## Citation
 ```
@@ -80,6 +94,3 @@ scheduler.draw()
   howpublished = {\url{https://github.com/longxingtan/python-lekin}},
 }
 ```
-
-## Reference
-- https://github.com/paulkastel/JobShopPRO

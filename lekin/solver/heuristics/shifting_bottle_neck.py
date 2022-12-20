@@ -1,1 +1,0 @@
-"""Shifting bottle neck heuristics"""

@@ -1,4 +1,4 @@
-"""Generate the example data"""
+"""Generate the example jobshoppro"""
 
 import json
 import logging

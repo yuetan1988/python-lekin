@@ -12,6 +12,8 @@ python-lekin documentation
 
 **python-lekin** is a Flexible Job shop Scheduler Library, named after and inspired by `Lekin <https://web-static.stern.nyu.edu/om/software/lekin/>`_.
 
+Finite Capacity Planning
+
 .. toctree::
    :maxdepth: 5
    :caption: Contents:

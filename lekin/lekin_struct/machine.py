@@ -1,6 +1,10 @@
 """
 Struct Machine/机器
 
+property
+
+method
+
 """
 
 

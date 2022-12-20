@@ -2,6 +2,8 @@
 [license-url]: https://opensource.org/licenses/Apache-2.0
 [pypi-image]: https://badge.fury.io/py/python-lekin.svg
 [pypi-url]: https://pypi.python.org/pypi/python-lekin
+[pepy-image]: https://pepy.tech/badge/lekin/month
+[pepy-url]: https://pepy.tech/project/lekin
 [build-image]: https://github.com/LongxingTan/python-lekin/actions/workflows/test.yml/badge.svg?branch=master
 [build-url]: https://github.com/LongxingTan/python-lekin/actions/workflows/test.yml?query=branch%3Amaster
 [lint-image]: https://github.com/LongxingTan/python-lekin/actions/workflows/lint.yml/badge.svg?branch=master
@@ -17,6 +19,7 @@
 
 [![LICENSE][license-image]][license-url]
 [![PyPI Version][pypi-image]][pypi-url]
+[![Download][pepy-image]][pepy-url]
 [![Build Status][build-image]][build-url]
 [![Lint Status][lint-image]][lint-url]
 [![Docs Status][docs-image]][docs-url]

@@ -1,4 +1,4 @@
-"""Check the input data format and necessary information"""
+"""Check the input job shop format and necessary information"""
 
 import logging
 
