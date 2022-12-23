@@ -1,3 +1,3 @@
 import unittest
 
-from lekin.solver.dispatching_rules.spt import SPT
+from lekin.solver.construction_heuristics.spt import SPT

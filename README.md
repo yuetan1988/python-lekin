@@ -34,9 +34,10 @@
 
 - accelerate by
 - Changeover Optimization
-- Ready for demo, research and production
+- Ready for demo, research and maybe production
 
 # DRATFING- NOT FINISHED AND DON'T USE IT NOW!
+
 ## Tutorial
 
 **Installation**

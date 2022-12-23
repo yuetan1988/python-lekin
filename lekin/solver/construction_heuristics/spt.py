@@ -2,10 +2,10 @@
 
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
-# from collections import sorteddict
-
 
 class SPT(object):
+    """ """
+
     def __init__(self):
         self.time = {}
         self.waiting_operations = {}
