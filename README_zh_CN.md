@@ -29,13 +29,20 @@
 
 **python-lekin**是一个数字化车间智能排产调度工具，名字来源于[教育工具Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)
 
+## 特征
+
+- 支持工艺路线约束
+- 支持产能约束
+- 支持物料齐套约束
+- 支持顺排、倒排等方法
+
 
 ## 快速入门
 
 ### 安装
 
 ``` shell
-$ pip install python-lekin
+$ pip install lekin
 ```
 
 ### 使用

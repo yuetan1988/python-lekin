@@ -38,6 +38,18 @@
 
 # DRATFING- NOT FINISHED AND DON'T USE IT NOW!
 
+## Feature
+
+- constrained optimization
+  - route
+  - production
+  - material kit
+  - together
+
+- soft constrained optimization
+  - objective
+
+
 ## Tutorial
 
 **Installation**
