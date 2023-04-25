@@ -10,7 +10,8 @@ python-lekin documentation
    <a class="github-button" href="https://github.com/LongxingTan/python-lekin" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star LongxingTan/python-lekin on GitHub">GitHub</a>
 
 
-**python-lekin** is a Flexible Job shop Scheduler Library, named after and inspired by `Lekin <https://web-static.stern.nyu.edu/om/software/lekin/>`_.
+**python-lekin** 是一个数字化车间智能排产调度工具，名字来源于`Lekin <https://web-static.stern.nyu.edu/om/software/lekin/>`_.
+
 
 Finite Capacity Planning
 
