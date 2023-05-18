@@ -64,8 +64,13 @@ scheduler.draw()
 - Route
 
 ## 示例
+在实际APS系统开发中，
+
+- 按工艺路线拆分工序
+- 按BOM拆分物料
 
 ## 引用
+
 ```
 @misc{python-lekin2022,
   author = {Longxing Tan},

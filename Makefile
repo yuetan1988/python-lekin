@@ -1,4 +1,3 @@
-
 .PHONY: style test docs
 
 check_dirs := lekin examples tests
