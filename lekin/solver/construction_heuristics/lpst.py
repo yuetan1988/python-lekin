@@ -3,7 +3,7 @@ Backward scheduler
 倒排"""
 
 
-class LPST(objective):
+class LPST(object):
     def __init__(self):
         pass
 

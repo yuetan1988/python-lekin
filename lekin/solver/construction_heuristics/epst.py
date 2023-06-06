@@ -3,7 +3,7 @@ Forward scheduler
 正排"""
 
 
-class EPST(objective):
+class EPST(object):
     def __init__(self):
         pass
 
