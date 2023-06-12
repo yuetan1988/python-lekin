@@ -10,4 +10,4 @@ API
 
    scheduler
    solver
-   struct
+   lekin_struct

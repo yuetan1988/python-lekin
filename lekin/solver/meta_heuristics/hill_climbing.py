@@ -1,6 +1,6 @@
-"""Local search"""
+"""Hill climbing"""
 
 
-class LocalSearch(object):
+class HillClimbing(object):
     def __init__(self):
         pass

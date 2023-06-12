@@ -80,6 +80,7 @@ In real world, Lekin integrates with MES to deploy production plans on the shop 
 
 - Construction heuristics
     - [SPT]()
+    - [critical path]()
 
 - Meta heuristics
     - [local search]()
