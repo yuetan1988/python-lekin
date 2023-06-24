@@ -1,4 +1,3 @@
-
 .PHONY: style test docs
 
 check_dirs := lekin examples tests
@@ -8,8 +7,8 @@ check_dirs := lekin examples tests
 style:
 	black --preview $(check_dirs)
 	isort $(check_dirs)
-	flake8
-	pre-commit run --all-files
+	flake8 $(check_dirs)
+	pre-commit run --files $(check_dirs)
 
 # run tests for the library
 

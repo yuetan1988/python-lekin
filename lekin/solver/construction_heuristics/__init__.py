@@ -2,5 +2,5 @@
 
 
 class Rules(object):
-    def __init__(self, name):
+    def __init__(self):
         pass

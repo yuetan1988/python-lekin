@@ -1,11 +1,12 @@
 """Shortest Processing Time"""
 
+from collections import OrderedDict
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
-
-# from collections import sorteddict
 
 
 class SPT(object):
+    """ """
+
     def __init__(self):
         self.time = {}
         self.waiting_operations = {}
@@ -64,7 +65,7 @@ class SPT(object):
 
                 del self.time[t]
                 break
-            self.time = SortedDict(self.time)
+            self.time = OrderedDict(self.time)
         return self.jobs_list_to_export
 
     def get_waiting_operations(self, job_list, time, machine_list, current_time_on_machines):

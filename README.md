@@ -34,9 +34,22 @@
 
 - accelerate by
 - Changeover Optimization
-- Ready for demo, research and production
+- Ready for demo, research and maybe production
 
 # DRATFING- NOT FINISHED AND DON'T USE IT NOW!
+
+## Feature
+
+- constrained optimization
+  - route
+  - production
+  - material kit
+  - together
+
+- soft constrained optimization
+  - objective
+
+
 ## Tutorial
 
 **Installation**
@@ -67,6 +80,7 @@ In real world, Lekin integrates with MES to deploy production plans on the shop 
 
 - Construction heuristics
     - [SPT]()
+    - [critical path]()
 
 - Meta heuristics
     - [local search]()

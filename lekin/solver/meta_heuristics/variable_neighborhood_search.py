@@ -1,1 +1,1 @@
-"""variable neighborhood search"""
+"""Variable neighborhood search"""

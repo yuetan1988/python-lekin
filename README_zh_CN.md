@@ -27,7 +27,14 @@
 
 **[文档](https://python-lekin.readthedocs.io)** | **[教程](https://python-lekin.readthedocs.io/en/latest/tutorials.html)** | **[发布日志](https://python-lekin.readthedocs.io/en/latest/CHANGELOG.html)** | **[English](https://github.com/LongxingTan/python-lekin/blob/master/README.md)**
 
-**python-lekin**是一个数字化车间智能排产调度工具，名字来源于[教育工具Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)
+**python-lekin**是一个APS智能排产调度工具，名字来源于[Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)。在考虑实际约束的前提下，动态调整计划排程，高效响应客户订单承诺。
+
+## 特征
+
+- 支持工艺路线约束
+- 支持产能约束
+- 支持物料齐套约束
+- 支持顺排、倒排等方法
 
 
 ## 快速入门
@@ -35,7 +42,7 @@
 ### 安装
 
 ``` shell
-$ pip install python-lekin
+$ pip install lekin
 ```
 
 ### 使用
@@ -57,8 +64,13 @@ scheduler.draw()
 - Route
 
 ## 示例
+在实际APS系统开发中，
+
+- 按工艺路线拆分工序
+- 按BOM拆分物料
 
 ## 引用
+
 ```
 @misc{python-lekin2022,
   author = {Longxing Tan},
