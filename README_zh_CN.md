@@ -27,7 +27,7 @@
 
 **[文档](https://python-lekin.readthedocs.io)** | **[教程](https://python-lekin.readthedocs.io/en/latest/tutorials.html)** | **[发布日志](https://python-lekin.readthedocs.io/en/latest/CHANGELOG.html)** | **[English](https://github.com/LongxingTan/python-lekin/blob/master/README.md)**
 
-**python-lekin**是一个数字化车间智能排产调度工具，名字来源于[教育工具Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)
+**python-lekin**是一个APS智能排产调度工具，名字来源于[Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)。在考虑实际约束的前提下，动态调整计划排程，高效响应客户订单承诺。
 
 ## 特征
 

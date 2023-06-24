@@ -1,7 +1,7 @@
 Application
 ===========
 
-Data Requirement
+数据
 ----------------
 
 MRP: Material Requirements Planning
@@ -10,7 +10,7 @@ MRP: Material Requirements Planning
 BOM: Bill Of Materials
 
 
-Function requirement
+功能
 ------------------------
 
 一个完善的APS系统包含以下模块。
@@ -18,3 +18,18 @@ Function requirement
 - 排程中心
 - 排程工作台
 - 物料中心
+
+
+理解
+----------
+
+实际APS会涉及到各个车间，各个工序的复杂区分，以及BOM中涉及到多工厂的部分。
+- 其实和APS关系不大，APS只要把最后一层工序展开，最后一层BOM展开，按实际的资源约束进行计算，最后只是展现形式上的区别
+
+首先解决m个工序、n个机器的车间排产问题，然后把实际问题往车间问题靠。
+
+
+可视化
+------------
+- 资源在时间线上的计划情况
+- 按订单，在时间线上的操作情况
