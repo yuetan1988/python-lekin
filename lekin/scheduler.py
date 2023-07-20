@@ -18,5 +18,5 @@ class Scheduler(object):
     def evaluate(self):
         pass
 
-    def draw(self):
+    def plot(self):
         pass

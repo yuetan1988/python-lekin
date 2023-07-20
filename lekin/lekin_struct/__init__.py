@@ -8,8 +8,8 @@ https://gitee.com/EnCode/APS?_from=gitee_search#%E5%BB%BA%E6%A8%A1
 
 """
 
-from lekin.lekin_struct.job import Job
-from lekin.lekin_struct.machine import Machine  # 机器
+from lekin.lekin_struct.job import Job  # 成品需求
 from lekin.lekin_struct.operation import Operation  # 工序
-from lekin.lekin_struct.order import Order
+from lekin.lekin_struct.resource import Machine  # 机器
 from lekin.lekin_struct.route import Route
+from lekin.lekin_struct.timeslot import TimeSlot
