@@ -1,4 +1,6 @@
-"""Flexible job shop scheduler"""
+"""Flexible job shop scheduler
+Rescheduler due to inserted order or default machine
+"""
 
 from collections import OrderedDict
 import logging
@@ -18,5 +20,5 @@ class Scheduler(object):
     def evaluate(self):
         pass
 
-    def draw(self):
+    def plot(self):
         pass
