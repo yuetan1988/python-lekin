@@ -10,11 +10,12 @@ from lekin.datasets.check_data import check_data
 
 
 class Scheduler(object):
-    def __init__(self, objective, solver):
+    def __init__(self, objective, solver, max_operations):
         self.objective = objective
         self.solver = solver
+        self.max_operations = max_operations
 
-    def solve(self, jobs, machines, max_operations):
+    def solve(self, jobs, machines):
         self.solver.solve(jobs, machines)
 
     def evaluate(self):

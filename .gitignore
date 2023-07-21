@@ -87,6 +87,6 @@ coverage.xml
 /reference/
 /data/
 /weights/
-/examples/jobshoppro/*
+/reference/jobshoppro/*
 /business/*
-/examples/*
+/examples/*.xlsx

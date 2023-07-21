@@ -41,16 +41,29 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 class JobCollector:
     def __init__(self):
         self.jobs = []  # List to store Job objects
+        self.routes = []  # List to store route with sequence of jobs
         self.operations = []
-        self.routes = []
         self.resources = []
         self.time_slots = []
 
     def add_job(self, job):
         self.jobs.append(job)
+        if job.assigned_route is not None:
+            self.routes.append(job.assigned_route)
+        else:
+            self.routes.clear()
+
+    def add_route(self, route):
+        self.routes.append(route)
 
     def add_operation(self, operation):
         self.operations.append(operation)
+
+    def add_resource(self, resource):
+        self.resources.append(resource)
+
+    def add_time_slot(self, time_slot):
+        self.time_slots.append(time_slot)
 
     def get_job_by_id(self, job_id):
         for job in self.jobs:
@@ -59,6 +72,7 @@ class JobCollector:
         return None
 
     def get_operations_by_job_and_route(self, job_id, route_id):
+        assert len(job_id) == len(route_id)
         job_operations = []
         for operation in self.operations:
             if operation.parent_operation_id is None and operation.route_id == route_id:
@@ -87,13 +101,24 @@ class JobCollector:
 
         return schedule
 
+    def get_all_operations(self):
+        return self.operations
+
+    def get_all_resources(self):
+        return self.resources
+
+    def get_all_time_slots(self):
+        return self.time_slots
+
 
 class Job(object):
-    def __init__(self, job_id, priority, demand_time, assigned_route, assigned_tree):
+    def __init__(self, job_id, priority, demand_time, earliest_start_time=None, assigned_route=None, assigned_bom=None):
         self.job_id = job_id
         self.priority = priority
         self.demand_time = demand_time
-        self.assigned_route = None  # Route object assigned to this job
+        self.earliest_start_time = earliest_start_time  # Material constraint
+        self.assigned_route = assigned_route  # Route object assigned to this job
+        self.assigned_bom = assigned_bom
         self.assigned_operations = []  # List of Operation objects assigned to this job
 
     def assign_route(self, route):
