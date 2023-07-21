@@ -110,3 +110,16 @@ class BackwardScheduler(object):
                 if not slot.is_occupied():
                     unoccupied_slots.append(slot)
         return unoccupied_slots
+
+    # 便于保存结果
+    def assign_operation(self, operation, resource):
+        # Check if the resource has any available time slots for the operation
+        resource_time_slots = resource.get_time_slots()
+        for time_slot in resource_time_slots:
+            if time_slot.start_time <= operation.get_max_begin():
+                # Assign the operation to the resource within the available time slot
+                operation.assign_resource(resource, time_slot)
+                operation.assigned_resource = resource  # Update the assigned resource
+                operation.assigned_time_slot = time_slot  # Update the assigned time slot
+                return True
+        return False

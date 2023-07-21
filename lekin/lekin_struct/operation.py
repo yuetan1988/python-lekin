@@ -35,5 +35,8 @@ class Operation:
         self.earliest_end_time = None
         self.latest_end_time = None
 
+        self.assigned_resource = None  # To store the assigned resource
+        self.assigned_time_slot = None  # To store the assigned time slot
+
     def __str__(self):
         pass

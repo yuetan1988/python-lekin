@@ -50,7 +50,7 @@ class ResourceCollector:
     def __init__(self):
         self.resources = {}
 
-    def add_resource(self, resource):
+    def add_resource(self, resource, priority=1, time_slots=None):
         self.resources[resource.resource_id] = resource
 
     def get_resource(self, resource_id):
@@ -67,13 +67,14 @@ class ResourceCollector:
 
 
 class Resource:
-    def __init__(self, resource_id, resource_name):
+    def __init__(self, resource_id, resource_name=None):
         self.resource_id = resource_id
         self.resource_name = resource_name
         self.available_timeslots = []
 
     def add_timeslot(self, start_time, end_time):
-        self.available_timeslots.append(TimeSlot(self.resource_id, start_time, end_time))
+        # self.available_timeslots.append(TimeSlot(self.resource_id, start_time, end_time))
+        self.available_timeslots.append(TimeSlot(start_time, end_time))
 
     def get_unoccupied_time_slots(self):
         unoccupied_slots = []
