@@ -1,4 +1,6 @@
-"""Flexible job shop scheduler"""
+"""Flexible job shop scheduler
+Rescheduler due to inserted order or default machine
+"""
 
 from collections import OrderedDict
 import logging

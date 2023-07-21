@@ -11,7 +11,7 @@ class BackwardScheduler(object):
         self.routes = {}  # Dictionary to store routes by ID
         self.assigned_timeslots = {}  # Dictionary to store assigned timeslots
 
-    def solve(self, job_collector):
+    def backward_schedule(self, job_collector):
         # Sort jobs based on priority (higher priority first)
         jobs_collector = job_collector.jobs
         jobs_collector.sort(key=lambda x: x.priority, reverse=True)
@@ -79,3 +79,34 @@ class BackwardScheduler(object):
         # Assign a timeslot to a specific operation in a job.
         key = (job_id, operation_id)
         self.assigned_timeslots[key] = timeslot
+
+    # 以下是为了push推紧，但是推紧的时候需要考虑工序之间的关联
+    def forward_schedule(self):
+        # push the unoccupied time slots and make the queue of operations continuous,
+        # The forward scheduling will try to fill in the unoccupied time slots with operations
+        # Get all the unoccupied time slots for each resource
+        unoccupied_slots = self.get_unoccupied_time_slots()
+
+        # Sort the unoccupied time slots in ascending order of start time
+        unoccupied_slots.sort(key=lambda slot: slot.start_time)
+
+        # Iterate through the unoccupied time slots and assign operations to fill them
+        for slot in unoccupied_slots:
+            for job in self.job_collector.jobs:
+                for route_id in job.route_ids:
+                    operations = self.job_collector.get_operations_by_job_and_route(job.job_id, route_id)
+                    for operation in operations:
+                        start_time, end_time = self.find_available_timeslot(slot.resource, operation, slot.start_time)
+                        if start_time is not None and end_time is not None:
+                            self.assign_to_resource(slot.resource, operation, start_time, end_time)
+                            break  # Stop iterating through operations once the time slot is filled
+                if slot.is_occupied():
+                    break  # Stop iterating through jobs if the time slot is filled
+
+    def get_unoccupied_time_slots(self):
+        unoccupied_slots = []
+        for resource in self.job_collector.resources:
+            for slot in resource.available_timeslots:
+                if not slot.is_occupied():
+                    unoccupied_slots.append(slot)
+        return unoccupied_slots
