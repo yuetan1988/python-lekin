@@ -9,6 +9,7 @@ class TimeSlot:
     def __init__(self, start_time, end_time):
         self.start_time = start_time
         self.end_time = end_time
+        self.duration = end_time - start_time
         self.assigned_operation = None
 
     def assign_operation(self, operation, processing_time):

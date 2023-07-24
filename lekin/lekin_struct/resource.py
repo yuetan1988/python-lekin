@@ -70,9 +70,11 @@ class Resource:
     def __init__(self, resource_id, resource_name=None, max_tasks=1):
         self.resource_id = resource_id
         self.resource_name = resource_name
-        self.available_timeslots = []
         self.max_tasks = max_tasks  # maximum task can be done in same time
         self.tasks = {time_slot: None for time_slot in range(1, max_tasks + 1)}
+        self.available_timeslots = []
+        self.assigned_task = []
+        self.assigned_time_slot = []
 
     def add_timeslot(self, start_time, end_time):
         # self.available_timeslots.append(TimeSlot(self.resource_id, start_time, end_time))

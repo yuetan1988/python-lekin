@@ -76,6 +76,115 @@ class BackwardScheduler(object):
                 return start_time, start_time + timedelta(hours=processing_time)
         return
 
+    def find_available_timeslot2(self, operation, resource, job_demand_time):
+        # Start scheduling from the job's demand time and move backward
+        current_time = job_demand_time
+
+        # Iterate through the resource's assigned time slots in reverse order
+        for time_slot in reversed(resource.assigned_time_slots):
+            # Check if the operation can fit within the time slot
+            if time_slot.end_time >= current_time + operation.processing_time + operation.setup_time:
+                # Check if the operation has any required setup time or material readiness
+                if self.check_material_readiness(operation, time_slot.end_time) and self.check_setup_time(
+                    operation, time_slot.end_time
+                ):
+                    return time_slot.end_time - operation.processing_time - operation.setup_time
+
+            # If the current time slot cannot fit the operation, update the current time
+            current_time = time_slot.start_time
+
+        # If no suitable time slot is found, return None
+        return None
+
+    def assign_operation(self, job, operation, resources):
+        demand_date = job.demand_date
+        resource_assigned = None
+        time_slot_assigned = None
+
+        # Find the available time slot for the operation
+        time_slot = self.find_available_timeslot(operation, resources, demand_date)
+
+        # If a suitable time slot is found, assign the operation to it
+        if time_slot:
+            resource_assigned = time_slot.resources_available
+            time_slot_assigned = time_slot
+
+        # If no suitable time slot is found, try adjusting start or end time
+        else:
+            # Try to adjust the start time earlier
+            time_slot_adjusted_start = self.find_available_timeslot(
+                operation, resources, demand_date, adjust_start_time=True, adjust_end_time=False
+            )
+
+            # Try to adjust the end time later
+            time_slot_adjusted_end = self.find_available_timeslot(
+                operation, resources, demand_date, adjust_start_time=False, adjust_end_time=True
+            )
+
+            # Compare the adjusted time slots and choose the better one
+            if time_slot_adjusted_start and time_slot_adjusted_end:
+                if (
+                    time_slot_adjusted_start.end_time <= demand_date
+                    and time_slot_adjusted_start.duration >= operation.processing_time
+                ):
+                    resource_assigned = time_slot_adjusted_start.resources_available
+                    time_slot_assigned = time_slot_adjusted_start
+                else:
+                    resource_assigned = time_slot_adjusted_end.resources_available
+                    time_slot_assigned = time_slot_adjusted_end
+            elif time_slot_adjusted_start:
+                resource_assigned = time_slot_adjusted_start.resources_available
+                time_slot_assigned = time_slot_adjusted_start
+            elif time_slot_adjusted_end:
+                resource_assigned = time_slot_adjusted_end.resources_available
+                time_slot_assigned = time_slot_adjusted_end
+
+        # Assign the operation and update the resource availability
+        if time_slot_assigned:
+            operation.assigned_resource = resource_assigned
+            operation.assigned_time_slot = time_slot_assigned
+            self.resources_available[time_slot_assigned].resources_available -= operation.required_resources
+        else:
+            # Handle the case when no suitable time slot is found after adjustment
+            # (you may add appropriate error handling or logging here)
+            pass
+
+    def find_available_timeslot3(
+        self, operation, resources, demand_date, adjust_start_time=True, adjust_end_time=True, max_iterations=10
+    ):
+        # Get the operation's processing time and resource requirements
+        processing_time = operation.processing_time
+        required_resources = operation.required_resources
+
+        # Iterate through available time slots
+        for time_slot in self.resources_available:
+            # Check if the time slot is large enough for the operation
+            if time_slot.duration >= processing_time:
+                # Check if the required resources are available in the time slot
+                if all(resource in time_slot.resources_available for resource in required_resources):
+                    # Check if the operation's end time is before or equal to the demand date
+                    if time_slot.end_time <= demand_date:
+                        return time_slot
+
+            # If adjust_start_time is True, try to adjust the start time earlier
+            if adjust_start_time and time_slot.start_time >= demand_date:
+                adjusted_start_time = time_slot.start_time - processing_time
+                adjusted_time_slot = TimeSlot(adjusted_start_time, time_slot.end_time, time_slot.resources_available)
+                if all(resource in adjusted_time_slot.resources_available for resource in required_resources):
+                    if adjusted_time_slot.end_time <= demand_date:
+                        return adjusted_time_slot
+
+            # If adjust_end_time is True, try to adjust the end time later
+            if adjust_end_time and time_slot.end_time >= demand_date:
+                adjusted_end_time = time_slot.end_time + processing_time
+                adjusted_time_slot = TimeSlot(time_slot.start_time, adjusted_end_time, time_slot.resources_available)
+                if all(resource in adjusted_time_slot.resources_available for resource in required_resources):
+                    if adjusted_time_slot.end_time <= demand_date:
+                        return adjusted_time_slot
+
+        # If no suitable time slot is found after max_iterations, return None
+        return None
+
     def find_assigned_timeslot(self, job_id, operation_id):
         # Find the assigned timeslot for a specific operation in a job (if any).
         key = (job_id, operation_id)
@@ -118,7 +227,7 @@ class BackwardScheduler(object):
         return unoccupied_slots
 
     # 便于保存结果
-    def assign_operation(self, operation, resource):
+    def assign_operation2(self, operation, resource):
         # Check if the resource has any available time slots for the operation
         resource_time_slots = resource.get_time_slots()
         for time_slot in resource_time_slots:

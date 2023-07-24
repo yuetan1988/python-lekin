@@ -74,7 +74,8 @@ class Operation:
         pre_time=0,  # setup times
         post_time=0,
         required_resource=None,
-        parent_operation_id=None,
+        parent_job_id=None,
+        prev_operation_id=None,
         next_operation_id=None,
     ):
         self.operation_id = operation_id
@@ -85,7 +86,8 @@ class Operation:
         # self.demand_time = demand_time
         self.route_constraint = route_constraint
         self.required_resource = required_resource
-        self.parent_operation_id = parent_operation_id
+        self.parent_job_id = parent_job_id
+        self.prev_operation_id = prev_operation_id
         self.next_operation_id = next_operation_id
 
         self.earliest_start_time = None

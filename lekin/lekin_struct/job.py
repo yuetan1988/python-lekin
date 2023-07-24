@@ -89,15 +89,15 @@ class JobCollector:
 
     @property
     def operations(self):
-        return self.operations
+        return self.operation_list
 
     @property
     def resources(self):
-        return self.resources
+        return self.resource_list
 
     @property
     def time_slots(self):
-        return self.time_slots
+        return self.time_slot_list
 
 
 class Job(object):
