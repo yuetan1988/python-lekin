@@ -29,13 +29,15 @@
 
 **python-lekin**是一个APS智能排产调度工具，名字来源于[Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)。在考虑实际约束的前提下，动态调整计划排程，高效响应客户订单承诺。
 
-## 特征
 
 - 支持工艺路线约束
 - 支持产能约束
 - 支持物料齐套约束
 - 支持顺排、倒排等方法
+- 支持遗传算法排产
+- 支持强化学习排产
 
+# **DRAFTING- NOT FINISHED AND DON'T USE IT NOW!**
 
 ## 快速入门
 
@@ -57,17 +59,18 @@ scheduler.solve(jobs, machines)
 
 scheduler.draw()
 ```
-### 数据解释
-- Job
-- Task
-- Machine
-- Route
 
 ## 示例
 在实际APS系统开发中，
 
 - 按工艺路线拆分工序
 - 按BOM拆分物料
+
+### 数据准备
+- Job
+- Task
+- Machine
+- Route
 
 ## 引用
 

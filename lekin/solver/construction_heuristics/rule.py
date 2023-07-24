@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 import heapq
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
-from lekin.lekin_struct import Job, Operation, TimeSlot
+from lekin.lekin_struct import Job, Operation, Resource, TimeSlot
 
 
 class BackwardScheduler(object):
@@ -48,7 +49,12 @@ class BackwardScheduler(object):
                     #     f" {timeslot.end_time}"
                     # )
 
-    def find_available_timeslot(self, resource, operation):
+                # After the scheduling is done, fill in the assigned resource and time slot for each operation
+                if operation.assigned_resource and operation.assigned_time_slot:
+                    resource = self.resources[operation.assigned_resource]
+                    resource.assign_task(operation.assigned_time_slot, operation)
+
+    def find_available_timeslot(self, resource: Resource, operation: Operation):
         job_type = operation.job.job_type
         existing_operations = [op for op in resource.assigned_operations if op.job.job_type == job_type]
         existing_operations.sort(key=lambda op: op.end_time, reverse=True)
@@ -123,3 +129,70 @@ class BackwardScheduler(object):
                 operation.assigned_time_slot = time_slot  # Update the assigned time slot
                 return True
         return False
+
+    # 排序时不光考虑priority，也考虑连续性和时间差，也就是时间差不多的排序时就排在一起
+    def sort_jobs(self, jobs: List[Job]):
+        # Custom sorting function based on priority and continuity
+        def custom_sort(job):
+            priority_weight = job.priority  # You may adjust the weight based on your requirements
+            continuity_weight = -self.calculate_gap_time(job)
+            return priority_weight + continuity_weight
+
+        return sorted(jobs, key=custom_sort, reverse=True)
+
+    def calculate_gap_time(self, job: Job):
+        # Calculate the gap time between consecutive jobs of the same type
+        jobs_same_type = [j for j in self.job_collector.get_jobs_by_type(job.type)]
+        jobs_same_type.sort(key=lambda j: j.demand_date)
+        gap_times = [
+            jobs_same_type[i + 1].demand_date - jobs_same_type[i].demand_date for i in range(len(jobs_same_type) - 1)
+        ]
+        return max(gap_times) if gap_times else 0
+
+    # 考虑换型时间
+    def assign_operation_changeover(self, operation, resource, start_time):
+        # Calculate end time based on setup time and processing time
+        setup_time = 0
+        if resource:
+            setup_time = operation.setup_time  # Get the setup time for this operation and resource
+        end_time = start_time + setup_time + operation.processing_time
+
+        # Check if the resource is available during the entire operation duration
+        if self.is_resource_available(resource, start_time, end_time):
+            # Assign the operation to the resource and update its start and end times
+            operation.required_resource = resource
+            operation.start_time = start_time + setup_time
+            operation.end_time = end_time
+            # Update resource availability
+            self.update_resource_availability(resource, start_time + setup_time, end_time)
+            return True
+        else:
+            return False
+
+    # 换型
+    def schedule_jobs_changeover(self, jobs):
+        sorted_jobs = self.sort_jobs_by_priority(jobs)
+        for job in sorted_jobs:
+            current_resource = None
+            current_end_time = job.demand_date
+
+            for operation in job.route.operations[::-1]:  # Reverse order
+                # Calculate the start time for the current operation
+                start_time = current_end_time - operation.processing_time
+
+                # If the operation has a next operation, consider the setup time
+                if operation.next_operation:
+                    setup_time = self.get_setup_time(operation, current_resource)
+                    start_time -= setup_time
+
+                # Assign the operation to a resource
+                assigned = False
+                for resource in self.resources:
+                    assigned = self.assign_operation(operation, resource, start_time)
+                    if assigned:
+                        current_resource = resource
+                        current_end_time = start_time
+                        break
+
+                if not assigned:
+                    raise ValueError("Operation could not be scheduled on any available resource.")

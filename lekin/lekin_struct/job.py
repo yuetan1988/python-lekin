@@ -37,62 +37,48 @@ for op in job1_operations_route1:
 
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
+from lekin.lekin_struct.operation import Operation
+
 
 class JobCollector:
     def __init__(self):
-        self.jobs = []  # List to store Job objects
-        self.routes = []  # List to store route with sequence of jobs
-        self.operations = []
-        self.resources = []
-        self.time_slots = []
+        self.job_list = []  # List to store Job objects
+        self.route_list = []  # List to store route with sequence of jobs
+        self.operation_list = []
+        self.resource_list = []
+        self.time_slot_list = []
 
     def add_job(self, job):
-        self.jobs.append(job)
-        if job.assigned_route is not None:
-            self.routes.append(job.assigned_route)
+        self.job_list.append(job)
+        if job.assigned_route_id is not None:
+            self.route_list.append(job.assigned_route_id)
         else:
-            self.routes.clear()
+            self.route_list.clear()
 
     def add_route(self, route):
-        self.routes.append(route)
+        self.route_list.append(route)
 
     def add_operation(self, operation):
-        self.operations.append(operation)
+        self.operation_list.append(operation)
 
     def add_resource(self, resource):
-        self.resources.append(resource)
+        self.resource_list.append(resource)
 
     def add_time_slot(self, time_slot):
-        self.time_slots.append(time_slot)
+        self.time_slot_list.append(time_slot)
 
     def get_job_by_id(self, job_id):
-        for job in self.jobs:
+        for job in self.job_list:
             if job.job_id == job_id:
                 return job
         return None
 
-    def get_operations_by_job_and_route(self, job_id, route_id):
-        assert len(job_id) == len(route_id)
-        job_operations = []
-        for operation in self.operations:
-            if operation.parent_operation_id is None and operation.route_id == route_id:
-                # If the operation is the first operation in the route
-                current_operation = operation
-                while current_operation:
-                    if current_operation.job_id == job_id:
-                        job_operations.append(current_operation)
-                    next_operation_id = current_operation.next_operation_id
-                    current_operation = next(
-                        (op for op in self.operations if op.operation_id == next_operation_id), None
-                    )
-        return job_operations
-
     def get_schedule(self):
         schedule = {}
 
-        for resource in self.resources:
+        for resource in self.resource_list:
             scheduled_operations = []
-            for operation in self.operations:
+            for operation in self.operation_list:
                 if operation.resource == resource:
                     scheduled_operations.append({"operation_id": operation.id, "start_time": operation.start_time})
 
@@ -101,31 +87,40 @@ class JobCollector:
 
         return schedule
 
-    def get_all_operations(self):
+    @property
+    def operations(self):
         return self.operations
 
-    def get_all_resources(self):
+    @property
+    def resources(self):
         return self.resources
 
-    def get_all_time_slots(self):
+    @property
+    def time_slots(self):
         return self.time_slots
 
 
 class Job(object):
-    def __init__(self, job_id, priority, demand_time, earliest_start_time=None, assigned_route=None, assigned_bom=None):
+    def __init__(
+        self, job_id, priority, demand_time, earliest_start_time=None, assigned_route_id=None, assigned_bom_id=None
+    ):
         self.job_id = job_id
         self.priority = priority
         self.demand_time = demand_time
         self.earliest_start_time = earliest_start_time  # Material constraint
-        self.assigned_route = assigned_route  # Route object assigned to this job
-        self.assigned_bom = assigned_bom
+        self.assigned_route_id = assigned_route_id  # Route object assigned to this job
+        self.assigned_bom_id = assigned_bom_id
         self.assigned_operations = []  # List of Operation objects assigned to this job
 
-    def assign_route(self, route):
-        self.assigned_route = route
+    def assign_route(self, route_id):
+        self.assigned_route_id = route_id
 
     def assign_operation(self, operation):
         self.assigned_operations.append(operation)
+
+    @property
+    def operation(self):
+        return self.operations
 
     def __eq__(self, other):
         return

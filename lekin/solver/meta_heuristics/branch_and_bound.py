@@ -41,7 +41,7 @@ class BranchAndBoundScheduler:
             return
 
         job = self.job_list[current_job_idx]
-        route = self.resource_list[job.route_id]
+        route = self.resource_list[job.assigned_route_id]
 
         for resource_id in route.operations[0].resource_ids:
             resource = self.resource_list[resource_id]

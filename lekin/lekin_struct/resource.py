@@ -67,14 +67,22 @@ class ResourceCollector:
 
 
 class Resource:
-    def __init__(self, resource_id, resource_name=None):
+    def __init__(self, resource_id, resource_name=None, max_tasks=1):
         self.resource_id = resource_id
         self.resource_name = resource_name
         self.available_timeslots = []
+        self.max_tasks = max_tasks  # maximum task can be done in same time
+        self.tasks = {time_slot: None for time_slot in range(1, max_tasks + 1)}
 
     def add_timeslot(self, start_time, end_time):
         # self.available_timeslots.append(TimeSlot(self.resource_id, start_time, end_time))
         self.available_timeslots.append(TimeSlot(start_time, end_time))
+
+    def assign_task(self, time_slot, operation):
+        self.tasks[time_slot] = operation
+
+    def get_task_at_time_slot(self, time_slot):
+        return self.tasks.get(time_slot)
 
     def get_unoccupied_time_slots(self):
         unoccupied_slots = []

@@ -9,7 +9,7 @@ https://gitee.com/EnCode/APS?_from=gitee_search#%E5%BB%BA%E6%A8%A1
 """
 
 from lekin.lekin_struct.job import Job, JobCollector  # 成品需求
-from lekin.lekin_struct.operation import Operation  # 工序
+from lekin.lekin_struct.operation import Operation, OperationCollector  # 工序
 from lekin.lekin_struct.resource import Resource, ResourceCollector  # 机器
-from lekin.lekin_struct.route import Route
+from lekin.lekin_struct.route import Route, RouteCollector
 from lekin.lekin_struct.timeslot import TimeSlot

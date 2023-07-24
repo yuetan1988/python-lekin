@@ -7,36 +7,94 @@ method
 
 """
 
+from typing import Any, Callable, Dict, List, Optional, Tuple
+
 
 class OperationCollector:
     def __init__(self):
-        self.operations = []  # List to store Operation objects
+        self.operation_list = []  # List to store Operation objects
 
     def add_operation(self, operation):
-        self.operations.append(operation)
+        self.operation_list.append(operation)
 
     def get_operation_by_id(self, operation_id):
-        for operation in self.operations:
+        for operation in self.operation_list:
             if operation.operation_id == operation_id:
                 return operation
         return None
 
+    def get_operations_by_job_and_route(self, job_list, route_list):
+        assert len(job_list) == len(route_list)
+
+        for job, route in zip(job_list, route_list):
+            # Get the operations for the current job and route
+            # route = route_list[route_index]
+            job_operations = route.get_operations()
+
+            # Fill in the job_id for each operation
+            for i, operation in enumerate(job_operations):
+                if i > 0:
+                    operation.parent_operation_id = job_operations[i - 1].operation_id
+                if i < len(job_operations) - 1:
+                    operation.next_operation_id = job_operations[i + 1].operation_id
+
+                operation.job_id = job.job_id
+
+                # Extend the list of all operations with the current job's operations
+                self.operation_list.extend(job_operations)
+
+                # Assign the operations to the current job
+                job.operations = job_operations
+        return self.operation_list
+
+    # def get_operations_by_job_and_route(self, job_list, route_list):
+    #     assert len(job_list) == len(route_list)
+    #     operation_list = []
+    #     for operation in self.operations:
+    #         if operation.parent_operation_id is None and operation.route_id == route_id:
+    #             # If the operation is the first operation in the route
+    #             current_operation = operation
+    #             while current_operation:
+    #                 if current_operation.job_id == job_id:
+    #                     job_operations.append(current_operation)
+    #                 next_operation_id = current_operation.next_operation_id
+    #                 current_operation = next(
+    #                     (op for op in self.operations if op.operation_id == next_operation_id), None
+    #                 )
+    #     return job_operations
+
 
 class Operation:
-    def __init__(self, operation_id, operation_name, processing_time, demand_time, route_constraint):
+    def __init__(
+        self,
+        operation_id,
+        operation_name,
+        processing_time,
+        route_constraint=None,
+        pre_time=0,  # setup times
+        post_time=0,
+        required_resource=None,
+        parent_operation_id=None,
+        next_operation_id=None,
+    ):
         self.operation_id = operation_id
         self.operation_name = operation_name
         self.processing_time = processing_time
-        self.demand_time = demand_time
-        self.resource_requirements = []
+        self.pre_time = pre_time
+        self.post_time = post_time
+        # self.demand_time = demand_time
         self.route_constraint = route_constraint
+        self.required_resource = required_resource
+        self.parent_operation_id = parent_operation_id
+        self.next_operation_id = next_operation_id
+
         self.earliest_start_time = None
         self.latest_start_time = None
         self.earliest_end_time = None
         self.latest_end_time = None
 
-        self.assigned_resource = None  # To store the assigned resource
-        self.assigned_time_slot = None  # To store the assigned time slot
+        self.assigned_resource = None  # Track the assigned resource
+        self.assigned_time_slot = None  # Track the assigned time slot
 
     def __str__(self):
         pass

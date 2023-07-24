@@ -4,8 +4,10 @@ from collections import OrderedDict
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 
-class SPT(object):
-    """ """
+class SPTScheduler(object):
+    """
+    SPT
+    """
 
     def __init__(self):
         self.time = {}
