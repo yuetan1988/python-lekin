@@ -70,7 +70,7 @@ class Resource:
     def __init__(self, resource_id, resource_name=None, max_tasks=1):
         self.resource_id = resource_id
         self.resource_name = resource_name
-        self.max_tasks = max_tasks  # maximum task can be done in same time
+        self.max_tasks = max_tasks  # maximum task can be done in same time, capacity
         self.tasks = {time_slot: None for time_slot in range(1, max_tasks + 1)}
         self.available_timeslots = []
         self.assigned_task = []

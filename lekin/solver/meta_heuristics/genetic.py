@@ -5,8 +5,17 @@ import random
 
 
 class GeneticScheduler:
-    def __init__(self, job_collector, population_size=50, generations=1000, crossover_rate=0.8, mutation_rate=0.2):
+    def __init__(
+        self,
+        job_collector=None,
+        initial_schedule=None,
+        population_size=50,
+        generations=1000,
+        crossover_rate=0.8,
+        mutation_rate=0.2,
+    ):
         self.job_collector = job_collector
+        self.initial_schedule = initial_schedule  # 倒排顺排后的初始结果
         self.population_size = population_size
         self.generations = generations
         self.crossover_rate = crossover_rate

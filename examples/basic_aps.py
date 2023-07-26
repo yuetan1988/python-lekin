@@ -15,7 +15,7 @@ from lekin.lekin_struct import (
     Route,
     RouteCollector,
 )
-from lekin.solver.construction_heuristics.rule import BackwardScheduler
+from reference.opta.rule import BackwardScheduler
 
 mo = pd.read_excel("./MOInput.xlsx", sheet_name="2.1.工单")
 route_maps = pd.read_excel("./MOInput.xlsx", sheet_name="2.2.工艺路线")
@@ -28,6 +28,7 @@ resource_dates = pd.read_excel("./MOInput.xlsx", sheet_name="5.1.资源可用列
 job_collector = JobCollector()
 for index, row in mo.iterrows():
     job_id = row["产品ID"]
+    job_type = row["产品ID"]
     priority = row["优先级"]
     earliest_start_date = row["就绪时间"]
     demand_date = row["交付时间"]
