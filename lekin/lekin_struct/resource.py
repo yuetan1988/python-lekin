@@ -73,6 +73,7 @@ class Resource:
         self.max_tasks = max_tasks  # maximum task can be done in same time, capacity
         self.tasks = {time_slot: None for time_slot in range(1, max_tasks + 1)}
         self.available_timeslots = []
+
         self.assigned_task = []
         self.assigned_time_slot = []
 
@@ -85,6 +86,9 @@ class Resource:
 
     def get_task_at_time_slot(self, time_slot):
         return self.tasks.get(time_slot)
+
+    def get_available_time_slots(self, max_begin, min_end):
+        return
 
     def get_unoccupied_time_slots(self):
         unoccupied_slots = []

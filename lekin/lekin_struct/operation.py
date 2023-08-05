@@ -7,7 +7,7 @@ method
 
 """
 
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 
 class OperationCollector:
@@ -69,11 +69,13 @@ class Operation:
         self,
         operation_id,
         operation_name,
-        processing_time,
+        processing_time: Union[int, List[int]],
         route_constraint=None,
         pre_time=0,  # setup times
         post_time=0,
+        lead_time=0,
         required_resource=None,
+        required_resource_priority=None,
         parent_job_id=None,
         prev_operation_ids=None,
         next_operation_ids=None,
@@ -83,12 +85,14 @@ class Operation:
         self.processing_time = processing_time
         self.pre_time = pre_time
         self.post_time = post_time
+        self.lead_time = lead_time
         # self.demand_time = demand_time
         self.route_constraint = route_constraint
         self.required_resource = required_resource
+        self.required_resource_priority = required_resource_priority
         self.parent_job_id = parent_job_id
         self.prev_operation_ids = prev_operation_ids  # predecessors
-        self.next_operation_ids = next_operation_ids
+        self.next_operation_ids = next_operation_ids  # successors
 
         self.earliest_start_time = None
         self.latest_start_time = None
@@ -97,6 +101,11 @@ class Operation:
 
         self.assigned_resource = None  # Track the assigned resource
         self.assigned_time_slot = None  # Track the assigned time slot
+
+    # Add a method to calculate granularity metric based on processing time and available time slot
+    def calculate_granularity_metric(self, available_time_slot):
+        # Calculate the granularity metric based on processing time and available time slot
+        pass
 
     def __str__(self):
         pass

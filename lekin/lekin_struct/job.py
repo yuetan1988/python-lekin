@@ -105,7 +105,7 @@ class Job(object):
         self,
         job_id,
         priority,
-        demand_time,
+        demand_date,
         job_type=None,
         earliest_start_time=None,
         assigned_route_id=None,
@@ -113,7 +113,7 @@ class Job(object):
     ):
         self.job_id = job_id
         self.priority = priority
-        self.demand_time = demand_time
+        self.demand_date = demand_date
         self.job_type = job_type
         self.earliest_start_time = earliest_start_time  # Material constraint
         self.assigned_route_id = assigned_route_id  # Route object assigned to this job

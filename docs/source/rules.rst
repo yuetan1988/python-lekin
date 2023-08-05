@@ -1,6 +1,7 @@
 Rules
 ============
 
+分为rule-based、event-based、resource-based两种思路。
 
 SPT最短加工时间
 --------------------
