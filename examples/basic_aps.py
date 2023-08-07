@@ -57,7 +57,9 @@ for group, row in route_maps.groupby("产品ID"):
     for i, item in row.iterrows():
         operations_sequence.append(
             Operation(
-                operation_id=row.loc[i, "工序ID"], operation_name=row.loc[i, "工序名称"], processing_time=row.loc[i, "任务基本时长"]
+                operation_id=row.loc[i, "工序ID"],
+                operation_name=row.loc[i, "工序名称"],
+                processing_time=row.loc[i, "任务基本时长"],
             )
         )
 

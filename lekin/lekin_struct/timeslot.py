@@ -4,6 +4,8 @@
 
 from datetime import datetime, timedelta
 
+import pandas as pd
+
 
 class TimeSlot:
     def __init__(self, start_time, end_time):
@@ -18,6 +20,14 @@ class TimeSlot:
 
     def is_occupied(self):
         return self.assigned_operation is not None
+
+    @property
+    def hours(self):
+        return pd.date_range(start=self.start_time, end=self.end_time, freq="1H")
+
+    @property
+    def num_of_hours(self):
+        return len(pd.date_range(start=self.start_time, end=self.end_time, freq="1H"))
 
 
 # class TimeSlot:

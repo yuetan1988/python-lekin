@@ -1,10 +1,5 @@
 """
-Struct Route/工艺流程
-
-property
-
-method
-
+Struct Route/工艺流程/工艺路线
 """
 
 from typing import Any, Callable, Dict, List, Optional, Tuple

@@ -43,29 +43,13 @@ from lekin.lekin_struct.operation import Operation
 class JobCollector:
     def __init__(self):
         self.job_list = []  # List to store Job objects
-        self.route_list = []  # List to store route with sequence of jobs
-        self.operation_list = []
-        self.resource_list = []
-        self.time_slot_list = []
+        # self.route_list = []  # List to store route with sequence of jobs
+        # self.operation_list = []
+        # self.resource_list = []
+        # self.time_slot_list = []
 
     def add_job(self, job):
         self.job_list.append(job)
-        if job.assigned_route_id is not None:
-            self.route_list.append(job.assigned_route_id)
-        else:
-            self.route_list.clear()
-
-    def add_route(self, route):
-        self.route_list.append(route)
-
-    def add_operation(self, operation):
-        self.operation_list.append(operation)
-
-    def add_resource(self, resource):
-        self.resource_list.append(resource)
-
-    def add_time_slot(self, time_slot):
-        self.time_slot_list.append(time_slot)
 
     def get_job_by_id(self, job_id):
         for job in self.job_list:
@@ -87,24 +71,13 @@ class JobCollector:
 
         return schedule
 
-    @property
-    def operations(self):
-        return self.operation_list
-
-    @property
-    def resources(self):
-        return self.resource_list
-
-    @property
-    def time_slots(self):
-        return self.time_slot_list
-
 
 class Job(object):
     def __init__(
         self,
         job_id,
         priority,
+        quantity,
         demand_date,
         job_type=None,
         earliest_start_time=None,
@@ -114,6 +87,7 @@ class Job(object):
         self.job_id = job_id
         self.priority = priority
         self.demand_date = demand_date
+        self.quantity = quantity
         self.job_type = job_type
         self.earliest_start_time = earliest_start_time  # Material constraint
         self.assigned_route_id = assigned_route_id  # Route object assigned to this job

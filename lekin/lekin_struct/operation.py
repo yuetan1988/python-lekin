@@ -69,27 +69,29 @@ class Operation:
         self,
         operation_id,
         operation_name,
+        quantity,
         processing_time: Union[int, List[int]],
-        route_constraint=None,
         pre_time=0,  # setup times
         post_time=0,
         lead_time=0,
-        required_resource=None,
-        required_resource_priority=None,
+        route_constraint=None,
+        available_resource=None,
+        available_resource_priority=None,
         parent_job_id=None,
         prev_operation_ids=None,
         next_operation_ids=None,
     ):
         self.operation_id = operation_id
         self.operation_name = operation_name
+        self.quantity = quantity
         self.processing_time = processing_time
         self.pre_time = pre_time
         self.post_time = post_time
         self.lead_time = lead_time
         # self.demand_time = demand_time
         self.route_constraint = route_constraint
-        self.required_resource = required_resource
-        self.required_resource_priority = required_resource_priority
+        self.available_resource = available_resource
+        self.available_resource_priority = available_resource_priority
         self.parent_job_id = parent_job_id
         self.prev_operation_ids = prev_operation_ids  # predecessors
         self.next_operation_ids = next_operation_ids  # successors

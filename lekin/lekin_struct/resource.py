@@ -42,6 +42,7 @@ add_time_slots_to_resource(resource2, resource2_start_times, resource2_processin
 add_time_slots_to_resource(resource3, resource3_start_times, resource3_processing_times)
 
 """
+import pandas as pd
 
 from lekin.lekin_struct.timeslot import TimeSlot
 
@@ -50,10 +51,10 @@ class ResourceCollector:
     def __init__(self):
         self.resources = {}
 
-    def add_resource(self, resource, priority=1, time_slots=None):
-        self.resources[resource.resource_id] = resource
+    def add_resource(self, resource):
+        self.resources.update(resource)
 
-    def get_resource(self, resource_id):
+    def get_resource_by_id(self, resource_id):
         return self.resources.get(resource_id)
 
     def get_all_resources(self):
@@ -74,7 +75,7 @@ class Resource:
         self.tasks = {time_slot: None for time_slot in range(1, max_tasks + 1)}
         self.available_timeslots = []
 
-        self.assigned_task = []
+        self.assigned_operation = []
         self.assigned_time_slot = []
 
     def add_timeslot(self, start_time, end_time):
@@ -87,8 +88,23 @@ class Resource:
     def get_task_at_time_slot(self, time_slot):
         return self.tasks.get(time_slot)
 
-    def get_available_time_slots(self, max_begin, min_end):
-        return
+    def get_available_time_slots_within_time(self, start_time, limit_time, forward):
+        available_hours = []
+        current_hour = start_time
+
+        pd.date_range(start_time, limit_time)
+
+        while len(self.available_timeslots) > 0:
+            if current_hour not in self.assigned_time_slot:
+                available_hours.append(current_hour)
+                # num_hours -= 1
+
+            if forward:
+                current_hour += 1
+            else:
+                current_hour -= 1
+
+        return available_hours
 
     def get_unoccupied_time_slots(self):
         unoccupied_slots = []
@@ -102,6 +118,29 @@ class Resource:
                 unoccupied_slots.append(time_slot)
                 prev_end_time = time_slot.end_time
         return unoccupied_slots
+
+    def merge_schedules(self):
+        # Sort timeslots based on start time
+        self.timeslots.sort(key=lambda x: x.start_time)
+
+        merged_slots = []
+        current_slot = None
+
+        for slot in self.timeslots:
+            if not current_slot:
+                current_slot = slot
+            else:
+                # If the current slot and the next slot overlap, merge them
+                if current_slot.end_time >= slot.start_time:
+                    current_slot.end_time = max(current_slot.end_time, slot.end_time)
+                else:
+                    merged_slots.append(current_slot)
+                    current_slot = slot
+
+        if current_slot:
+            merged_slots.append(current_slot)
+
+        self.timeslots = merged_slots
 
     def __eq__(self, other):
         return
