@@ -23,11 +23,11 @@ class TimeSlot:
 
     @property
     def hours(self):
-        return pd.date_range(start=self.start_time, end=self.end_time, freq="1H")
+        return pd.date_range(start=self.start_time, end=self.end_time, freq="1H").tolist()[:-1]
 
     @property
-    def num_of_hours(self):
-        return len(pd.date_range(start=self.start_time, end=self.end_time, freq="1H"))
+    def duration_of_hours(self):
+        return len(pd.date_range(start=self.start_time, end=self.end_time, freq="1H")) - 1
 
 
 # class TimeSlot:
