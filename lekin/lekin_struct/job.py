@@ -111,4 +111,4 @@ class Job(object):
         return
 
     def __str__(self):
-        return
+        return f"{self.job_id}"

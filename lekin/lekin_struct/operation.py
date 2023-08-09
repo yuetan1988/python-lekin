@@ -1,10 +1,5 @@
 """
-Struct Operation/工序
-
-property
-
-method
-
+Operation Struct
 """
 
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
@@ -110,4 +105,4 @@ class Operation:
         pass
 
     def __str__(self):
-        pass
+        return f"{self.operation_id}-{self.operation_name}"

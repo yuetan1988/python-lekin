@@ -1,5 +1,5 @@
 """
-资源日历
+Calendar for resource Struct
 """
 
 from datetime import datetime, timedelta
@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import pandas as pd
 
 
-class TimeSlot:
+class TimeSlot(object):
     def __init__(self, start_time, end_time):
         self.start_time = start_time
         self.end_time = end_time
@@ -29,9 +29,12 @@ class TimeSlot:
     def duration_of_hours(self):
         return len(pd.date_range(start=self.start_time, end=self.end_time, freq="1H")) - 1
 
+    def overlaps_with(self, timeslot):
+        overlap_start = max(self.start_time, timeslot.start_time)
+        overlap_end = min(self.end_time, timeslot.end_time)
 
-# class TimeSlot:
-#     def __init__(self, resource_id, start_time, end_time):
-#         self.resource_id = resource_id
-#         self.start_time = start_time
-#         self.end_time = end_time
+        if overlap_start < overlap_end:
+            overlap_hours = (overlap_end - overlap_start).total_seconds() / 3600
+            return overlap_hours
+        else:
+            return 0

@@ -1,9 +1,5 @@
 """
-Struct Machine/机器
-
-property
-
-method
+Resource/Machine Struct
 
 # Assume we have a list of resource IDs
 resource_ids = [1, 2, 3]
@@ -40,7 +36,6 @@ resource3 = resource_collector.get_resource(3)
 add_time_slots_to_resource(resource1, resource1_start_times, resource1_processing_times)
 add_time_slots_to_resource(resource2, resource2_start_times, resource2_processing_times)
 add_time_slots_to_resource(resource3, resource3_start_times, resource3_processing_times)
-
 """
 
 import math
@@ -93,8 +88,6 @@ class Resource:
 
     def get_available_time_slots_within_time(self, start=None, end=None, periods=None, freq="1H", forward=True):
         available_hours = []
-
-        print(end, periods)
 
         # check_periods = pd.date_range(start=start, end=end, periods=periods, freq=freq)
         # if not forward:
@@ -197,11 +190,14 @@ class Resource:
 
         self.timeslots = merged_slots
 
-    def __eq__(self, other):
-        return
-
     def __hash__(self):
         return hash(str(self))
 
     def __str__(self):
-        return
+        return f"{self.resource_id}"
+
+    def __eq__(self, other):
+        return self.resource_id == other.resource_id
+
+    def __lt__(self, other):
+        return self.resource_id < other.resource_id

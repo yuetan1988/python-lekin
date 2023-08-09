@@ -1,5 +1,5 @@
 """
-Struct Route/工艺流程/工艺路线
+Route map Struct
 """
 
 from typing import Any, Callable, Dict, List, Optional, Tuple
@@ -27,19 +27,19 @@ class Route:
         self.available_time_slots = []  # List of time slots when machines are available
 
     def add_operation(self, operation: Operation):
-        self.operations.append(operation)
+        self.operations_sequence.append(operation)
 
     def get_operations(self) -> List[Operation]:
-        return self.operations
+        return self.operations_sequence
 
-    def add_machine(self, machine):
-        self.available_machines.append(machine)
+    def add_resource(self, resource):
+        self.available_resources.append(resource)
 
     def add_time_slot(self, time_slot):
         self.available_time_slots.append(time_slot)
 
-    # def __repr__(self):
-    #     return (
-    #         f"Route(route_id={self.route_id}, operation_ids={self.operation_ids},"
-    #         f" resources_available={self.resources_available})"
-    #     )
+    def __repr__(self):
+        return (
+            f"Route(route_id={self.route_id}, operation_ids={self.operations_sequence},"
+            f" resources_available={self.available_resources})"
+        )
