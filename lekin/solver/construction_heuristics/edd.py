@@ -1,7 +1,7 @@
 """Earliest Due Date"""
 
 
-class EDDScheduler:
+class EDDScheduler(object):
     def __init__(self, jobs, routes):
         self.jobs = jobs
         self.routes = routes

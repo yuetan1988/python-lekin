@@ -19,7 +19,7 @@ class RouteCollector:
 
 
 class Route:
-    def __init__(self, route_id, operations_sequence, available_resources=None):
+    def __init__(self, route_id, operations_sequence=None, available_resources=None):
         self.route_id = route_id
         self.operations_sequence = operations_sequence  # List of Operation objects
         self.available_resources = available_resources  # List of Resource objects representing available machines,

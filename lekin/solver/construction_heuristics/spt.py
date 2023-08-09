@@ -5,10 +5,6 @@ from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 
 class SPTScheduler(object):
-    """
-    SPT
-    """
-
     def __init__(self):
         self.time = {}
         self.waiting_operations = {}
@@ -98,3 +94,6 @@ class SPTScheduler(object):
 
             incoming_operations[mach.name].sort(key=lambda j: j.duration)
         return incoming_operations
+
+    def run(self):
+        return

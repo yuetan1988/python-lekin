@@ -49,7 +49,7 @@ class ResourceCollector:
     def __init__(self):
         self.resources = {}
 
-    def add_resource(self, resource):
+    def add_resource_dict(self, resource):
         self.resources.update(resource)
 
     def get_resource_by_id(self, resource_id):

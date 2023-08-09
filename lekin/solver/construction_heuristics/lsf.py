@@ -1,7 +1,7 @@
 """L"""
 
 
-class LSTScheduler:
+class LSTScheduler(object):
     def __init__(self, jobs, routes):
         self.jobs = jobs
         self.routes = routes

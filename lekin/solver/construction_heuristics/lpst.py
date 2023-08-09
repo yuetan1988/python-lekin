@@ -3,7 +3,7 @@ Backward scheduler
 倒排"""
 
 
-class LPSTScheduler:
+class LPSTScheduler(object):
     def __init__(self, jobs, routes):
         self.jobs = jobs
         self.routes = routes

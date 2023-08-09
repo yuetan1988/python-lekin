@@ -76,9 +76,9 @@ class Job(object):
     def __init__(
         self,
         job_id,
-        priority,
-        quantity,
-        demand_date,
+        priority=None,
+        quantity=None,
+        demand_date=None,
         job_type=None,
         earliest_start_time=None,
         assigned_route_id=None,
@@ -102,7 +102,7 @@ class Job(object):
 
     @property
     def operation(self):
-        return self.operations
+        return self.assigned_operations
 
     def __eq__(self, other):
         return

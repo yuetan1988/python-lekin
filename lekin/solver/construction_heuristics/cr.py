@@ -1,7 +1,7 @@
 """Critical ratio rule"""
 
 
-class CRScheduler:
+class CRScheduler(object):
     def __init__(self, jobs, routes):
         self.jobs = jobs
         self.routes = routes
