@@ -35,54 +35,24 @@ for op in job1_operations_route1:
     print("Operation ID:", op.operation_id)
 """
 
+from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from lekin.lekin_struct.operation import Operation
 
 
-class JobCollector:
-    def __init__(self):
-        self.job_list = []  # List to store Job objects
-        # self.route_list = []  # List to store route with sequence of jobs
-        # self.operation_list = []
-        # self.resource_list = []
-        # self.time_slot_list = []
-
-    def add_job(self, job):
-        self.job_list.append(job)
-
-    def get_job_by_id(self, job_id):
-        for job in self.job_list:
-            if job.job_id == job_id:
-                return job
-        return None
-
-    def get_schedule(self):
-        schedule = {}
-
-        for resource in self.resource_list:
-            scheduled_operations = []
-            for operation in self.operation_list:
-                if operation.resource == resource:
-                    scheduled_operations.append({"operation_id": operation.id, "start_time": operation.start_time})
-
-            if scheduled_operations:
-                schedule[resource.id] = scheduled_operations
-
-        return schedule
-
-
 class Job(object):
     def __init__(
         self,
-        job_id,
-        priority=None,
-        quantity=None,
-        demand_date=None,
-        job_type=None,
+        job_id: str,
+        priority: int = None,
+        quantity: int = None,
+        demand_date: datetime = None,
+        job_type: str = None,
         earliest_start_time=None,
         assigned_route_id=None,
         assigned_bom_id=None,
+        **kwargs,
     ):
         self.job_id = job_id
         self.priority = priority
@@ -93,6 +63,9 @@ class Job(object):
         self.assigned_route_id = assigned_route_id  # Route object assigned to this job
         self.assigned_bom_id = assigned_bom_id
         self.assigned_operations = []  # List of Operation objects assigned to this job
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def assign_route(self, route_id):
         self.assigned_route_id = route_id
@@ -112,3 +85,35 @@ class Job(object):
 
     def __str__(self):
         return f"{self.job_id}"
+
+
+class JobCollector:
+    def __init__(self):
+        self.job_list = []  # List to store Job objects
+        # self.route_list = []  # List to store route with sequence of jobs
+        # self.operation_list = []
+        # self.resource_list = []
+        # self.time_slot_list = []
+
+    def add_job(self, job: Job) -> None:
+        self.job_list.append(job)
+
+    def get_job_by_id(self, job_id: str):
+        for job in self.job_list:
+            if job.job_id == job_id:
+                return job
+        return None
+
+    def get_schedule(self):
+        schedule = {}
+
+        for resource in self.resource_list:
+            scheduled_operations = []
+            for operation in self.operation_list:
+                if operation.resource == resource:
+                    scheduled_operations.append({"operation_id": operation.id, "start_time": operation.start_time})
+
+            if scheduled_operations:
+                schedule[resource.id] = scheduled_operations
+
+        return schedule

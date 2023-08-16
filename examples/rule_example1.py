@@ -81,8 +81,8 @@ def prepare_data(file_path="./data/k1.json"):
 
 
 def run_scheduling(job_collector, route_list, resource_collector):
-    scheduler = SPTScheduler()
-    scheduler.solve(job_collector, resource_collector, route_list)
+    scheduler = LPSTScheduler()
+    scheduler.run(job_collector, resource_collector, route_list)
     return
 
 

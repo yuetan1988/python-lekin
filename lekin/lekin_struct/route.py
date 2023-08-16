@@ -19,12 +19,15 @@ class RouteCollector:
 
 
 class Route:
-    def __init__(self, route_id, operations_sequence=None, available_resources=None):
+    def __init__(self, route_id, operations_sequence=None, available_resources=None, **kwargs):
         self.route_id = route_id
         self.operations_sequence = operations_sequence  # List of Operation objects
         self.available_resources = available_resources  # List of Resource objects representing available machines,
         # When assigning operations to resources, check for resource availability and consider resource capacities
         self.available_time_slots = []  # List of time slots when machines are available
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def add_operation(self, operation: Operation):
         self.operations_sequence.append(operation)

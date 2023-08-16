@@ -66,7 +66,7 @@ class ResourceCollector:
 
 
 class Resource:
-    def __init__(self, resource_id, resource_name=None, max_tasks=1):
+    def __init__(self, resource_id, resource_name=None, max_tasks=1, **kwargs):
         self.resource_id = resource_id
         self.resource_name = resource_name
         self.max_tasks = max_tasks  # maximum task can be done in same time, capacity
@@ -75,6 +75,9 @@ class Resource:
 
         self.assigned_operation = []
         self.assigned_time_slot = []
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def add_timeslot(self, start_time, end_time):
         # self.available_timeslots.append(TimeSlot(self.resource_id, start_time, end_time))

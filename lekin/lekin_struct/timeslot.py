@@ -8,11 +8,14 @@ import pandas as pd
 
 
 class TimeSlot(object):
-    def __init__(self, start_time, end_time):
+    def __init__(self, start_time, end_time, **kwargs):
         self.start_time = start_time
         self.end_time = end_time
         self.duration = end_time - start_time
         self.assigned_operation = None
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def assign_operation(self, operation, processing_time):
         self.assigned_operation = operation

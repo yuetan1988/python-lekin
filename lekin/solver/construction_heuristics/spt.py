@@ -1,4 +1,6 @@
-"""Shortest Processing Time"""
+"""Shortest Processing Time
+
+"""
 
 from collections import OrderedDict
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union

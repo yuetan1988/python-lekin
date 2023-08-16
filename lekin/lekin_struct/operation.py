@@ -62,9 +62,9 @@ class OperationCollector:
 class Operation:
     def __init__(
         self,
-        operation_id,
-        operation_name,
-        quantity,
+        operation_id: str,
+        operation_name: str,
+        quantity: int,
         processing_time: Union[int, List[int]],
         pre_time=0,  # setup times
         post_time=0,
@@ -75,6 +75,7 @@ class Operation:
         parent_job_id=None,
         prev_operation_ids=None,
         next_operation_ids=None,
+        **kwargs,
     ):
         self.operation_id = operation_id
         self.operation_name = operation_name
@@ -98,6 +99,9 @@ class Operation:
 
         self.assigned_resource = None  # Track the assigned resource
         self.assigned_time_slot = None  # Track the assigned time slot
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     # Add a method to calculate granularity metric based on processing time and available time slot
     def calculate_granularity_metric(self, available_time_slot):
