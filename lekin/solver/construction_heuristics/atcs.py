@@ -1,5 +1,9 @@
 """Apparent Tardiness Cost"""
 
+import logging
+
+from lekin.solver.construction_heuristics.base import BaseScheduler
+
 
 class ATCScheduler(object):
     def __init__(self, jobs, routes):

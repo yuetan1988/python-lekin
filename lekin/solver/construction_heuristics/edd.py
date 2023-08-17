@@ -1,5 +1,9 @@
 """Earliest Due Date"""
 
+import logging
+
+from lekin.solver.construction_heuristics.base import BaseScheduler
+
 
 class EDDScheduler(object):
     def __init__(self, jobs, routes):

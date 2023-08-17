@@ -11,7 +11,7 @@ from lekin.lekin_struct import (
     Route,
     RouteCollector,
 )
-from lekin.solver.construction_heuristics import LPSTScheduler, SPTScheduler
+from lekin.solver.construction_heuristics import ForwardScheduler, LPSTScheduler, SPTScheduler
 
 
 def prepare_data(file_path="./data/k1.json"):
@@ -76,15 +76,16 @@ def prepare_data(file_path="./data/k1.json"):
 
         # print(resources)
         print(routes)
-        pass
+
     return job_collector, route_collector, resource_collector
 
 
-def run_scheduling(job_collector, route_list, resource_collector):
-    scheduler = LPSTScheduler()
-    scheduler.run(job_collector, resource_collector, route_list)
+def run_scheduling(job_collector, resource_collector, route_collector):
+    scheduler = ForwardScheduler(job_collector, resource_collector, route_collector)
+    scheduler.run()
     return
 
 
 if __name__ == "__main__":
-    prepare_data(file_path="./data/k1.json")
+    job_collector, route_collector, resource_collector = prepare_data(file_path="./data/k1.json")
+    run_scheduling(job_collector, route_collector, resource_collector)

@@ -1,5 +1,9 @@
 """First Come First Serve"""
 
+import logging
+
+from lekin.solver.construction_heuristics.base import BaseScheduler
+
 
 class FCFSScheduler:
     def __init__(self, jobs, routes):

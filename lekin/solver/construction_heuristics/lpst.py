@@ -5,11 +5,13 @@ Backward scheduler
 import logging
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
+from lekin.solver.construction_heuristics.base import BaseScheduler
+
 
 class LPSTScheduler(object):
-    def __init__(self, jobs, routes, **kwargs):
-        self.jobs = jobs
-        self.routes = routes
+    def __init__(self, job_collector, resource_collector, **kwargs):
+        self.job_collector = job_collector
+        self.resource_collector = resource_collector
 
         for key, value in kwargs.items():
             setattr(self, key, value)

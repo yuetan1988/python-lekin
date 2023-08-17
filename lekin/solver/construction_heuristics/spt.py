@@ -1,9 +1,11 @@
 """Shortest Processing Time
-
 """
 
 from collections import OrderedDict
+import logging
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+
+from lekin.solver.construction_heuristics.base import BaseScheduler
 
 
 class SPTScheduler(object):

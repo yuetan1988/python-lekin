@@ -1,5 +1,9 @@
 """Critical ratio rule"""
 
+import logging
+
+from lekin.solver.construction_heuristics.base import BaseScheduler
+
 
 class CRScheduler(object):
     def __init__(self, jobs, routes):

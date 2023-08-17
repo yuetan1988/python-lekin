@@ -2,6 +2,10 @@
 Forward scheduler
 正排"""
 
+import logging
+
+from lekin.solver.construction_heuristics.base import BaseScheduler
+
 
 class EPSTScheduler:
     def __init__(self, jobs, routes):

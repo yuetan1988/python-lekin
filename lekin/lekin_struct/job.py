@@ -70,11 +70,8 @@ class Job(object):
     def assign_route(self, route_id):
         self.assigned_route_id = route_id
 
-    def assign_operation(self, operation):
-        self.assigned_operations.append(operation)
-
     @property
-    def operation(self):
+    def operations(self):
         return self.assigned_operations
 
     def __eq__(self, other):
@@ -90,10 +87,21 @@ class Job(object):
 class JobCollector:
     def __init__(self):
         self.job_list = []  # List to store Job objects
+        self.index = -1
         # self.route_list = []  # List to store route with sequence of jobs
         # self.operation_list = []
         # self.resource_list = []
         # self.time_slot_list = []
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.index += 1
+        if self.index < len(self.job_list):
+            return self.job_list[self.index]
+        else:
+            raise StopIteration("Stop")
 
     def add_job(self, job: Job) -> None:
         self.job_list.append(job)

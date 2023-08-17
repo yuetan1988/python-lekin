@@ -1,20 +1,12 @@
 """backward scheduling"""
+
+import logging
+
 from lekin.lekin_struct.timeslot import TimeSlot
+from lekin.solver.construction_heuristics.base import BaseScheduler
 
 
 class BackwardScheduler(object):
-    def __init__(self):
-        pass
-
-    def run(self):
-        return
-
-
-class AdvBackwardScheduler(object):
-    """
-    chose the resource based on configurable choices
-    """
-
     def __init__(self):
         pass
 
