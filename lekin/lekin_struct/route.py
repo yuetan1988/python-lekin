@@ -7,17 +7,6 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from lekin.lekin_struct.operation import Operation
 
 
-class RouteCollector:
-    def __init__(self):
-        self.routes = {}
-
-    def add_route(self, route):
-        self.routes[route.route_id] = route
-
-    def get_route_by_id(self, route_id):
-        return self.routes.get(route_id, None)
-
-
 class Route:
     def __init__(self, route_id, operations_sequence=None, available_resources=None, **kwargs):
         self.route_id = route_id
@@ -46,3 +35,25 @@ class Route:
             f"Route(route_id={self.route_id}, operation_ids={self.operations_sequence},"
             f" resources_available={self.available_resources})"
         )
+
+
+class RouteCollector:
+    def __init__(self):
+        self.routes = {}
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.index += 1
+        if self.index < len(self.routes):
+            return list(self.routes.values())[self.index]
+        else:
+            raise StopIteration("Stop")
+
+    def add_route(self, route):
+        self.routes[route.route_id] = route
+
+    def get_route_by_id(self, route_id):
+        return self.routes.get(route_id, None)

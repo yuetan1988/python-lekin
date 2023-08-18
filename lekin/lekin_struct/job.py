@@ -13,32 +13,15 @@ property
     - critical ratio
     - priority
     - 属于哪个订单
-
-method
-
-ob1 = Job(1, datetime(2023, 7, 25), 1, 1)
-job2 = Job(2, datetime(2023, 7, 26), 2, 1)
-
-operation1 = Operation(1, [1, 2], 2, 2, None)
-operation2 = Operation(2, [3], 3, None, 1)
-
-job_collector = JobCollector()
-job_collector.add_job(job1)
-job_collector.add_job(job2)
-job_collector.add_operation(operation1)
-job_collector.add_operation(operation2)
-
-# Get operations for Job 1 and Route 1
-job1_operations_route1 = job_collector.get_operations_by_job_and_route(1, 1)
-print("Job 1 Operations (Route 1):")
-for op in job1_operations_route1:
-    print("Operation ID:", op.operation_id)
 """
 
 from datetime import datetime
+import random
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from lekin.lekin_struct.operation import Operation
+
+random.seed(315)
 
 
 class Job(object):
@@ -62,7 +45,7 @@ class Job(object):
         self.earliest_start_time = earliest_start_time  # Material constraint
         self.assigned_route_id = assigned_route_id  # Route object assigned to this job
         self.assigned_bom_id = assigned_bom_id
-        self.assigned_operations = []  # List of Operation objects assigned to this job
+        self._operations_sequence = []  # List of Operation objects for this job
 
         for key, value in kwargs.items():
             setattr(self, key, value)
@@ -72,7 +55,11 @@ class Job(object):
 
     @property
     def operations(self):
-        return self.assigned_operations
+        return self._operations_sequence
+
+    @operations.setter
+    def operations(self, operations_sequence):
+        self._operations_sequence = operations_sequence
 
     def __eq__(self, other):
         return
@@ -87,8 +74,9 @@ class Job(object):
 class JobCollector:
     def __init__(self):
         self.job_list = []  # List to store Job objects
+        self.color_dict = dict()  # List to store colors for job
         self.index = -1
-        # self.route_list = []  # List to store route with sequence of jobs
+        # self.route_list = []
         # self.operation_list = []
         # self.resource_list = []
         # self.time_slot_list = []
@@ -125,3 +113,26 @@ class JobCollector:
                 schedule[resource.id] = scheduled_operations
 
         return schedule
+
+    def generate_color_list_for_jobs(self, pastel_factor=0.5):
+        for job in self.job_list:
+            max_distance = None
+            best_color = None
+            for i in range(0, 100):
+                color = [
+                    (x + pastel_factor) / (1.0 + pastel_factor) for x in [random.uniform(0, 1.0) for i in [1, 2, 3]]
+                ]
+                if color not in self.color_dict.values():
+                    best_color = color
+                    break
+                else:
+                    best_distance = min([self.color_distance(color, c) for c in self.color_dict.values()])
+                    if not max_distance or best_distance > max_distance:
+                        max_distance = best_distance
+                        best_color = color
+            self.color_dict.update({job.job_id: best_color})
+        return self.color_dict
+
+    @staticmethod
+    def color_distance(c1, c2):
+        return sum([abs(x[0] - x[1]) for x in zip(c1, c2)])

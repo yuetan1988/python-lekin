@@ -1,6 +1,7 @@
 import json
+import logging
 
-from lekin.dashboard.gantt import plot_gantt_chart
+from lekin.dashboard.gantt import get_scheduling_res_from_all_jobs, plot_gantt_chart
 from lekin.lekin_struct import (
     Job,
     JobCollector,
@@ -12,6 +13,8 @@ from lekin.lekin_struct import (
     RouteCollector,
 )
 from lekin.solver.construction_heuristics import ForwardScheduler, LPSTScheduler, SPTScheduler
+
+logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
 
 
 def prepare_data(file_path="./data/k1.json"):
@@ -32,8 +35,10 @@ def prepare_data(file_path="./data/k1.json"):
             re_name = re["machineName"]
             re_id = int(re_name.replace("M", ""))
             resource = Resource(resource_id=re_id, resource_name=re_name)
+            resource.available_hours = list(range(1, 100))
             resource_collector.add_resource_dict({re_id: resource})
-        print([i.resource_id for i in resource_collector.get_all_resources()])
+        # print([i.resource_id for i in resource_collector.get_all_resources()])
+        # print(resource_collector.get_all_resources()[0].available_hours)
 
         # parse the job and route
         for ro in routes:
@@ -52,11 +57,11 @@ def prepare_data(file_path="./data/k1.json"):
                     for re in ta["taskMachine"]:
                         re_name = re["machineName"]
                         re_id = int(re_name.replace("M", ""))
-                        op_tm.append(Resource(resource_id=re_id, resource_name=re_name))
+                        op_tm.append(resource_collector.get_resource_by_id(re_id))
                 else:
                     re_name = ta["taskMachine"]["machineName"]
                     re_id = int(re_name.replace("M", ""))
-                    op_tm.append(Resource(resource_id=re_id, resource_name=re_name))
+                    op_tm.append(resource_collector.get_resource_by_id(re_id))
 
                 operations_sequence.append(
                     Operation(
@@ -75,9 +80,9 @@ def prepare_data(file_path="./data/k1.json"):
             job_collector.add_job(Job(job_id=ro_id, assigned_route_id=ro_id))
 
         # print(resources)
-        print(routes)
+        # print(routes)
 
-    return job_collector, route_collector, resource_collector
+    return job_collector, resource_collector, route_collector
 
 
 def run_scheduling(job_collector, resource_collector, route_collector):
@@ -87,5 +92,9 @@ def run_scheduling(job_collector, resource_collector, route_collector):
 
 
 if __name__ == "__main__":
-    job_collector, route_collector, resource_collector = prepare_data(file_path="./data/k1.json")
-    run_scheduling(job_collector, route_collector, resource_collector)
+    job_collector, resource_collector, route_collector = prepare_data(file_path="./data/k1.json")
+    run_scheduling(job_collector, resource_collector, route_collector)
+
+    scheduling_res = get_scheduling_res_from_all_jobs(job_collector)
+    print(scheduling_res)
+    plot_gantt_chart(job_collector, scheduling_res)

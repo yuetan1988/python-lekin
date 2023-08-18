@@ -36,7 +36,7 @@
 - Changeover Optimization
 - Ready for demo, research and maybe production
 
-# **DRAFTING- NOT FINISHED AND DON'T USE IT NOW!**
+# **DEVELOPING - NOT FINISHED AND DON'T USE IT NOW!**
 
 ## Feature
 

@@ -27,17 +27,17 @@
 
 **[文档](https://python-lekin.readthedocs.io)** | **[教程](https://python-lekin.readthedocs.io/en/latest/tutorials.html)** | **[发布日志](https://python-lekin.readthedocs.io/en/latest/CHANGELOG.html)** | **[English](https://github.com/LongxingTan/python-lekin/blob/master/README.md)**
 
-**python-lekin**是一个APS智能排产调度工具，名字来源于[Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)。在考虑实际约束的前提下，动态调整计划排程，高效响应客户订单承诺。
+**python-lekin**是一个APS智能排产调度工具，名字来源于[Lekin](https://web-static.stern.nyu.edu/om/software/lekin/)。在考虑实际约束的前提下，实现动态调整计划排程，高效响应客户订单承诺。
 
 
 - 支持工艺路线约束
 - 支持产能约束
 - 支持物料齐套约束
-- 支持顺排、倒排等方法
+- 支持顺排、倒排等排产方法
 - 支持遗传算法排产
 - 支持强化学习排产
 
-# **DRAFTING- NOT FINISHED AND DON'T USE IT NOW!**
+# **开发中- 目前请不要使用包，可用代码跑和学习!**
 
 ## 快速入门
 

@@ -1,41 +1,5 @@
 """
 Resource/Machine Struct
-
-# Assume we have a list of resource IDs
-resource_ids = [1, 2, 3]
-
-# Create a ResourceCollector
-resource_collector = ResourceCollector()
-
-# Function to add time slots to a resource
-def add_time_slots_to_resource(resource, start_times, processing_times):
-    for start_time, processing_time in zip(start_times, processing_times):
-        end_time = start_time + timedelta(hours=processing_time)
-        resource.add_time_slot(start_time, end_time)
-
-# Example time slot data (start times and processing times)
-resource1_start_times = [datetime(2023, 7, 25, 8, 0), datetime(2023, 7, 25, 14, 0)]
-resource1_processing_times = [2, 3]
-
-resource2_start_times = [datetime(2023, 7, 25, 10, 0)]
-resource2_processing_times = [4]
-
-resource3_start_times = [datetime(2023, 7, 25, 9, 0), datetime(2023, 7, 25, 13, 0)]
-resource3_processing_times = [2, 2.5]
-
-# Add resources to the ResourceCollector
-for resource_id in resource_ids:
-    resource = Resource(resource_id)
-    resource_collector.add_resource(resource)
-
-# Get each resource and add time slots
-resource1 = resource_collector.get_resource(1)
-resource2 = resource_collector.get_resource(2)
-resource3 = resource_collector.get_resource(3)
-
-add_time_slots_to_resource(resource1, resource1_start_times, resource1_processing_times)
-add_time_slots_to_resource(resource2, resource2_start_times, resource2_processing_times)
-add_time_slots_to_resource(resource3, resource3_start_times, resource3_processing_times)
 """
 
 import math
@@ -45,49 +9,95 @@ import pandas as pd
 from lekin.lekin_struct.timeslot import TimeSlot
 
 
-class ResourceCollector:
-    def __init__(self):
-        self.resources = {}
-
-    def add_resource_dict(self, resource):
-        self.resources.update(resource)
-
-    def get_resource_by_id(self, resource_id):
-        return self.resources.get(resource_id)
-
-    def get_all_resources(self):
-        return list(self.resources.values())
-
-    def get_unoccupied_time_slots(self):
-        unoccupied_slots = []
-        for resource in self.get_all_resources():
-            unoccupied_slots.extend(resource.get_unoccupied_time_slots())
-        return unoccupied_slots
-
-
 class Resource:
     def __init__(self, resource_id, resource_name=None, max_tasks=1, **kwargs):
         self.resource_id = resource_id
         self.resource_name = resource_name
         self.max_tasks = max_tasks  # maximum task can be done in same time, capacity
         self.tasks = {time_slot: None for time_slot in range(1, max_tasks + 1)}
-        self.available_timeslots = []
+        self._available_timeslots = []
+        self._available_hours = []
 
-        self.assigned_operation = []
-        self.assigned_time_slot = []
+        self.assigned_operations = []
+        self.assigned_time_slots = []
+        self.assigned_hours = []
 
         for key, value in kwargs.items():
             setattr(self, key, value)
 
     def add_timeslot(self, start_time, end_time):
-        # self.available_timeslots.append(TimeSlot(self.resource_id, start_time, end_time))
-        self.available_timeslots.append(TimeSlot(start_time, end_time))
+        self._available_timeslots.append(TimeSlot(start_time, end_time))
+        self._available_hours += TimeSlot(start_time, end_time).hours
 
-    def assign_task(self, time_slot, operation):
-        self.tasks[time_slot] = operation
+    def add_available_hours(self, hours):
+        self._available_hours = hours
 
-    def get_task_at_time_slot(self, time_slot):
-        return self.tasks.get(time_slot)
+    @property
+    def available_hours(self):
+        return self._available_hours
+
+    @available_hours.setter
+    def available_hours(self, available_hours):
+        self._available_hours = available_hours
+
+    def get_available_timeslot_for_op(self, start=None, end=None, periods=None, freq="1H", forward=True):
+        self.update_continuous_empty_hours()
+        select_hours = [i for i in self.available_hours if i <= end]
+
+        assert len(self.available_hours) == len(self.continuous_empty_hours)
+        front_available = self.continuous_empty_hours[: len(select_hours)]
+
+        chosen_hours_index = self.find_last_index_larger(periods, front_available)
+
+        if not chosen_hours_index:
+            back_available = self.continuous_empty_hours[len(select_hours) :]
+            chosen_hours_index = self.find_first_index_larger(periods, back_available)
+
+        if chosen_hours_index:
+            chosen_hours = self.available_hours[int(chosen_hours_index - periods) : chosen_hours_index]
+            return chosen_hours
+        else:
+            return []
+
+    def get_earliest_available_time(self, duration=None):
+        if len(self.available_hours) > len(self.assigned_hours):
+            return min(set(self.available_hours).difference(set(self.assigned_hours)))
+        else:
+            return None
+
+    def get_latest_available_time(self, duration=None):
+        return
+
+    def update_continuous_empty_hours(self):
+        if len(self.available_hours) != len(self.available_timeslots):
+            pass
+        if len(self.assigned_hours) != len(self.assigned_time_slot):
+            pass
+
+        # for hours_list in self.available_hours:
+        empty_hours = []
+        continuous_hours = 0
+
+        for hour in self.available_hours:
+            if hour in self.assigned_hours:  # Hour is not available
+                continuous_hours = 0
+            else:
+                continuous_hours += 1
+            empty_hours.append(continuous_hours)
+        self.continuous_empty_hours = empty_hours
+
+    def find_first_index_larger(self, input_value, lists):
+        for j, value in enumerate(lists):
+            if value > input_value:
+                return j
+        return None  # If no value is larger than the input
+
+    def find_last_index_larger(self, input_value, lists):
+        lists = lists[::-1]
+        for j, value in enumerate(lists):
+            if value > input_value:
+                return len(lists) - j
+        return None
 
     def get_available_time_slots_within_time(self, start=None, end=None, periods=None, freq="1H", forward=True):
         available_hours = []
@@ -204,3 +214,34 @@ class Resource:
 
     def __lt__(self, other):
         return self.resource_id < other.resource_id
+
+
+class ResourceCollector:
+    def __init__(self):
+        self.resources = {}
+        self.index = -1
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.index += 1
+        if self.index < len(self.resources):
+            return list(self.resources.values())[self.index]
+        else:
+            raise StopIteration("Stop")
+
+    def add_resource_dict(self, resource: Resource):
+        self.resources.update(resource)
+
+    def get_resource_by_id(self, resource_id):
+        return self.resources.get(resource_id)
+
+    def get_all_resources(self):
+        return list(self.resources.values())
+
+    def get_unoccupied_time_slots(self):
+        unoccupied_slots = []
+        for resource in self.get_all_resources():
+            unoccupied_slots.extend(resource.get_unoccupied_time_slots())
+        return unoccupied_slots

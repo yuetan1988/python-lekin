@@ -1,43 +1,68 @@
 """
-class CRScheduler:
-    # ... (rest of the class code)
-
-    def schedule_job(self, job):
-        # ... (rest of the method code)
-
-        for operation in job.route.operations:
-            # ... (rest of the method code)
-
-            # Store the scheduling result for each operation
-            self.schedule_result[operation] = (operation.start_time, operation.end_time)
+Gantt
 """
+
+import logging
 
 from matplotlib import ticker
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
+import pandas as pd
+
+logging.getLogger("matplotlib.font_manager").disabled = True
 
 
-def plot_gantt_chart(schedule_result):
-    fig, ax = plt.subplots()
+def get_scheduling_res_from_all_jobs(job_collector):
+    ops = []
+    for job in job_collector.job_list:
+        ops += job.operations
 
-    # Set y-axis limits
-    ax.set_ylim(0, 10)
-    ax.set_xlim(0, max([end_time for (_, end_time) in schedule_result.values()]))
-
-    for i, (operation, (start_time, end_time)) in enumerate(schedule_result.items()):
-        # Draw Gantt chart bar for each operation
-        y = 5 - i  # Position the bar on the y-axis
-        height = 1  # Bar height
-        width = end_time - start_time
-        rect = patches.Rectangle((start_time, y), width, height, linewidth=1, edgecolor="black", facecolor="blue")
-        ax.add_patch(rect)
-
-        # Add text label for the operation name
-        ax.text(
-            start_time + width / 2, y + height / 2, f"Operation {operation.id}", ha="center", va="center", color="white"
+    scheduling_res = []
+    for op in ops:
+        scheduling_res.append(
+            [
+                op.operation_id,
+                op.parent_job_id,
+                op.assigned_resource.resource_id,
+                min(op.assigned_hours),
+                max(op.assigned_hours),
+            ]
         )
+    scheduling_res = pd.DataFrame(scheduling_res, columns=["Operation", "Job", "Resource", "Start", "End"])
+    scheduling_res["Duration"] = scheduling_res["End"] - scheduling_res["Start"]  # + 1
+    return scheduling_res
 
+
+def plot_gantt_chart(job_collector, scheduling_res):
+    color_dict = job_collector.generate_color_list_for_jobs()
+
+    # gantt
+    resource_list = []
+    for resource, group in scheduling_res.groupby("Resource"):
+        resource_list.append(resource)
+        start_tuple = []
+        color_tuple = []
+        for _, op in group.iterrows():
+            start_tuple.append(op[["Start", "Duration"]].tolist())
+            color_tuple.append(color_dict.get(op["Job"]))
+
+        plt.gca().broken_barh(start_tuple, ((resource + 1) * 10, 9), facecolors=color_tuple)
+
+    # legend
+    legends_colors = []
+    for job in job_collector.job_list:
+        legends_colors.append(patches.Patch(color=color_dict.get(job.job_id), label=f"job{job.job_id}"))
+    plt.legend(handles=legends_colors, fontsize=8)
+
+    # resource tick
+    resources = resource_list  # list(reversed(resource_list))
+    resource_ticks = [15]
+    for i in range(len(resources)):
+        resource_ticks.append(resource_ticks[i] + 10)  # machine increase + 10
+    plt.yticks(resource_ticks[1:], resources)
+
+    plt.grid(True)
     plt.xlabel("Time")
-    plt.ylabel("Operations")
+    plt.ylabel("Resources")
     plt.title("Gantt Chart - Scheduling Result")
     plt.show()

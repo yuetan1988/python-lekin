@@ -15,8 +15,5 @@ class BaseScheduler(object):
     def scheduling_job(self, job, **kwargs):
         raise NotImplementedError
 
-    def rescheduling_job(self, job, **kwargs):
-        return
-
     def find_best_resource_and_timeslot_for_operation(self, operation, **kwargs):
         raise NotImplementedError
