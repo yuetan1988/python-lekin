@@ -5,6 +5,59 @@ Operation Struct
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union
 
 
+class Operation:
+    def __init__(
+        self,
+        operation_id: str,
+        operation_name: str,
+        quantity: int,
+        processing_time: Union[int, List[int]],
+        pre_time=0,  # setup times
+        post_time=0,
+        lead_time=0,
+        route_constraint=None,
+        available_resource=None,
+        available_resource_priority=None,
+        parent_job_id=None,
+        prev_operation_ids=None,
+        next_operation_ids=None,
+        **kwargs,
+    ):
+        self.operation_id = operation_id
+        self.operation_name = operation_name
+        self.quantity = quantity
+        self.processing_time = processing_time
+        self.pre_time = pre_time
+        self.post_time = post_time
+        self.lead_time = lead_time
+        # self.demand_time = demand_time
+        self.route_constraint = route_constraint
+        self.available_resource = available_resource
+        self.available_resource_priority = available_resource_priority
+        self.parent_job_id = parent_job_id
+        self.prev_operation_ids = prev_operation_ids  # predecessors
+        self.next_operation_ids = next_operation_ids  # successors
+
+        self.earliest_start_time = None
+        self.latest_start_time = None
+        self.earliest_end_time = None
+        self.latest_end_time = None
+
+        self.assigned_resource = None  # Track the assigned resource
+        self.assigned_time_slot = None  # Track the assigned time slot
+
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+
+    # Add a method to calculate granularity metric based on processing time and available time slot
+    def calculate_granularity_metric(self, available_time_slot):
+        # Calculate the granularity metric based on processing time and available time slot
+        pass
+
+    def __str__(self):
+        return f"{self.operation_id}-{self.operation_name}"
+
+
 class OperationCollector:
     def __init__(self):
         self.operation_list = []  # List to store Operation objects
@@ -57,56 +110,3 @@ class OperationCollector:
     #                     (op for op in self.operations if op.operation_id == next_operation_id), None
     #                 )
     #     return job_operations
-
-
-class Operation:
-    def __init__(
-        self,
-        operation_id: str,
-        operation_name: str,
-        quantity: int,
-        processing_time: Union[int, List[int]],
-        pre_time=0,  # setup times
-        post_time=0,
-        lead_time=0,
-        route_constraint=None,
-        available_resource=None,
-        available_resource_priority=None,
-        parent_job_id=None,
-        prev_operation_ids=None,
-        next_operation_ids=None,
-        **kwargs,
-    ):
-        self.operation_id = operation_id
-        self.operation_name = operation_name
-        self.quantity = quantity
-        self.processing_time = processing_time
-        self.pre_time = pre_time
-        self.post_time = post_time
-        self.lead_time = lead_time
-        # self.demand_time = demand_time
-        self.route_constraint = route_constraint
-        self.available_resource = available_resource
-        self.available_resource_priority = available_resource_priority
-        self.parent_job_id = parent_job_id
-        self.prev_operation_ids = prev_operation_ids  # predecessors
-        self.next_operation_ids = next_operation_ids  # successors
-
-        self.earliest_start_time = None
-        self.latest_start_time = None
-        self.earliest_end_time = None
-        self.latest_end_time = None
-
-        self.assigned_resource = None  # Track the assigned resource
-        self.assigned_time_slot = None  # Track the assigned time slot
-
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-
-    # Add a method to calculate granularity metric based on processing time and available time slot
-    def calculate_granularity_metric(self, available_time_slot):
-        # Calculate the granularity metric based on processing time and available time slot
-        pass
-
-    def __str__(self):
-        return f"{self.operation_id}-{self.operation_name}"

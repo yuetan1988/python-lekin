@@ -37,11 +37,12 @@ class BackwardScheduler(object):
 
             job.operations = route.operations_sequence
 
-        op_earliest_start = 0
-        for operation in job.operations[::-1]:
+        op_earliest_start = 0  # forward constraint
+        op_latest_end = 150  # backward constraint
+        for operation in job.operations[::-1]:  # inverse
             logging.info(f"\tAssign Operation {operation.operation_id} of Job {job.job_id}")
             chosen_resource, chosen_timeslot_hour = self.find_best_resource_and_timeslot_for_operation(
-                operation, op_earliest_start
+                operation, op_latest_end, op_earliest_start
             )
 
             if chosen_resource and chosen_timeslot_hour:
@@ -57,24 +58,27 @@ class BackwardScheduler(object):
                 chosen_resource.assigned_operations.append(operation)
                 chosen_resource.assigned_hours += chosen_timeslot_hour
 
-                op_earliest_start = chosen_timeslot_hour[-1] + 1
+                # op_earliest_start = chosen_timeslot_hour[-1] + 1
+                op_latest_end = chosen_timeslot_hour[0] - 1
         return
 
-    def find_best_resource_and_timeslot_for_operation(self, operation, op_earliest_start, **kwargs):
+    def find_best_resource_and_timeslot_for_operation(
+        self, operation, op_latest_end=None, op_earliest_start=None, **kwargs
+    ):
         available_resource = operation.available_resource
 
-        earliest_index = 0
-        resource_earliest_time = float("inf")
+        latest_index = float("inf")
+        resource_latest_time = 0
         for i, resource in enumerate(available_resource):
-            resource_time = resource.get_earliest_available_time(duration=operation.processing_time)
+            resource_time = resource.get_latest_available_time(duration=operation.processing_time, end=op_latest_end)
 
-            if resource_time < resource_earliest_time:
-                earliest_index = i
-                resource_earliest_time = resource_time
+            if resource_time > resource_latest_time:
+                latest_index = i
+                resource_latest_time = resource_time
 
-        chosen_resource = available_resource[earliest_index]
-        earliest_time = int(max(op_earliest_start, resource_earliest_time))
-        chosen_hours = list(range(earliest_time, earliest_time + math.ceil(operation.processing_time)))
+        chosen_resource = available_resource[latest_index]
+        latest_time = int(min(op_latest_end, resource_latest_time))
+        chosen_hours = list(range(latest_time - math.ceil(operation.processing_time), latest_time + 0))
         return chosen_resource, chosen_hours
 
     def assign_operation(self, operation, start_time, end_time, resources):

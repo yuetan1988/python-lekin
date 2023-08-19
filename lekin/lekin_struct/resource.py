@@ -59,19 +59,20 @@ class Resource:
         else:
             return []
 
-    def get_earliest_available_time(self, duration=None):
+    def get_earliest_available_time(self, duration=None, start=None):
         if len(self.available_hours) > len(self.assigned_hours):
             return min(set(self.available_hours).difference(set(self.assigned_hours)))
         else:
             return None
 
-    def get_latest_available_time(self, duration=None):
-        return
+    def get_latest_available_time(self, duration=None, end=None):
+        self.update_continuous_empty_hours()
+        return max([i for i in self.continuous_empty_hours[:end] if i >= duration])
 
     def update_continuous_empty_hours(self):
-        if len(self.available_hours) != len(self.available_timeslots):
+        if len(self.available_hours) != len(self._available_timeslots):
             pass
-        if len(self.assigned_hours) != len(self.assigned_time_slot):
+        if len(self.assigned_hours) != len(self.assigned_time_slots):
             pass
 
         # for hours_list in self.available_hours:
