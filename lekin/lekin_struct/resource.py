@@ -22,6 +22,8 @@ class Resource:
         self.assigned_operations = []
         self.assigned_time_slots = []
         self.assigned_hours = []
+        self.changeover_number = None  # number of times
+        self.changeover_time = None  # total time costs
 
         for key, value in kwargs.items():
             setattr(self, key, value)

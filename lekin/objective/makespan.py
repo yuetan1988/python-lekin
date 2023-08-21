@@ -1,11 +1,11 @@
-def calculate_makespan(schedule_result):
-    end_times = [end_time for (_, end_time) in schedule_result.values()]
-    return max(end_times)
+def calculate_makespan(job_collector):
+    for job in job_collector.job_list:
+        op = job.operations
+        job.makespan = op.assigned_hours[-1]
 
-
-def calculate_flow_time(schedule_result, job):
-    start_time, end_time = schedule_result[job.route.operations[-1]]
-    return end_time - job.release_date
+        if job.demand_date is not None:
+            job.tardiness = job.makespan - job.demand_date
+    return
 
 
 def calculate_changeover_time(schedule_result, job_collector):

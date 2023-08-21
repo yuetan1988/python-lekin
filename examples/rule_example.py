@@ -86,8 +86,8 @@ def prepare_data(file_path="./data/k1.json"):
 
 
 def run_scheduling(job_collector, resource_collector, route_collector):
-    scheduler = ForwardScheduler(job_collector, resource_collector, route_collector)
-    # scheduler = BackwardScheduler(job_collector, resource_collector, route_collector)
+    # scheduler = ForwardScheduler(job_collector, resource_collector, route_collector)
+    scheduler = BackwardScheduler(job_collector, resource_collector, route_collector)
     scheduler.run()
     return
 
