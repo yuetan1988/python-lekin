@@ -4,6 +4,7 @@ Resource/Machine Struct
 
 import math
 
+import numpy as np
 import pandas as pd
 
 from lekin.lekin_struct.timeslot import TimeSlot
@@ -21,6 +22,8 @@ class Resource:
         self.assigned_operations = []
         self.assigned_time_slots = []
         self.assigned_hours = []
+        self.changeover_number = None  # number of times
+        self.changeover_time = None  # total time costs
 
         for key, value in kwargs.items():
             setattr(self, key, value)
@@ -67,7 +70,8 @@ class Resource:
 
     def get_latest_available_time(self, duration=None, end=None):
         self.update_continuous_empty_hours()
-        return max([i for i in self.continuous_empty_hours[:end] if i >= duration])
+        return max([i + 1 for (i, v) in enumerate(self.continuous_empty_hours[:end]) if v >= duration])
+
 
     def update_continuous_empty_hours(self):
         if len(self.available_hours) != len(self._available_timeslots):

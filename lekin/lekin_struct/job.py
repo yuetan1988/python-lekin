@@ -2,17 +2,6 @@
 Struct Job/订单作业
     - a job could finish one product while finished
     - job/mo/operation/activity
-
-property
-    - 已完成活动
-    - 待完成活动
-    - processing time
-    - due date
-    - weight
-    - slack time remaining
-    - critical ratio
-    - priority
-    - 属于哪个订单
 """
 
 from datetime import datetime
@@ -46,6 +35,8 @@ class Job(object):
         self.assigned_route_id = assigned_route_id  # Route object assigned to this job
         self.assigned_bom_id = assigned_bom_id
         self._operations_sequence = []  # List of Operation objects for this job
+        self.makespan = None  # finish of the job
+        self.tardiness = None  # delay of the job
 
         for key, value in kwargs.items():
             setattr(self, key, value)

@@ -23,12 +23,13 @@ def get_scheduling_res_from_all_jobs(job_collector):
             [
                 op.operation_id,
                 op.parent_job_id,
+                op.quantity,
                 op.assigned_resource.resource_id,
                 min(op.assigned_hours),
                 max(op.assigned_hours),
             ]
         )
-    scheduling_res = pd.DataFrame(scheduling_res, columns=["Operation", "Job", "Resource", "Start", "End"])
+    scheduling_res = pd.DataFrame(scheduling_res, columns=["Operation", "Job", "Quantity", "Resource", "Start", "End"])
     scheduling_res["Duration"] = scheduling_res["End"] - scheduling_res["Start"]  # + 1
     return scheduling_res
 
