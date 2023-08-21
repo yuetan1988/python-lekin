@@ -72,6 +72,7 @@ class Resource:
         self.update_continuous_empty_hours()
         return max([i + 1 for (i, v) in enumerate(self.continuous_empty_hours[:end]) if v >= duration])
 
+
     def update_continuous_empty_hours(self):
         if len(self.available_hours) != len(self._available_timeslots):
             pass

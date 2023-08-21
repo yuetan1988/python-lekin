@@ -45,6 +45,7 @@ class BackwardScheduler(object):
 
         op_earliest_start = 0  # forward constraint
         op_latest_end = 150  # backward constraint
+        
         for operation in job.operations[::-1]:  # inverse for backward
             logging.info(f"\tAssign Operation {operation.operation_id} of Job {job.job_id}")
             chosen_resource, chosen_timeslot_hour = self.find_best_resource_and_timeslot_for_operation(
@@ -86,6 +87,7 @@ class BackwardScheduler(object):
         chosen_resource = available_resource[latest_index]
         latest_time = int(min(op_latest_end, resource_latest_time))
         chosen_hours = list(range(latest_time - math.ceil(operation.processing_time), latest_time + 1))
+
         return chosen_resource, chosen_hours
 
     def assign_operation(self, operation, start_time, end_time, resources):
