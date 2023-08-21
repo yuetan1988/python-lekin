@@ -3,11 +3,18 @@
 import logging
 import math
 
+from lekin.lekin_struct import JobCollector, ResourceCollector, RouteCollector
 from lekin.solver.construction_heuristics.base import BaseScheduler
 
 
 class ForwardScheduler(BaseScheduler):
-    def __init__(self, job_collector, resource_collector, route_collector=None, **kwargs):
+    def __init__(
+        self,
+        job_collector: JobCollector,
+        resource_collector: ResourceCollector,
+        route_collector: RouteCollector = None,
+        **kwargs,
+    ):
         super().__init__(job_collector, resource_collector, **kwargs)
         self.job_collector = job_collector
         self.resource_collector = resource_collector

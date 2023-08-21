@@ -8,9 +8,10 @@
         - spt
         - fifo
         - edd
-    - heuristics
+        - forward scheduling
+        - backward scheduling
+    - meta heuristics
         - local search
-        - shifting_bottle_neck
         - genetic
 
 ### Contributor
