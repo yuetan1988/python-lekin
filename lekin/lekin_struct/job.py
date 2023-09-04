@@ -2,17 +2,6 @@
 Struct Job/订单作业
     - a job could finish one product while finished
     - job/mo/operation/activity
-
-property
-    - 已完成活动
-    - 待完成活动
-    - processing time
-    - due date
-    - weight
-    - slack time remaining
-    - critical ratio
-    - priority
-    - 属于哪个订单
 """
 
 from datetime import datetime
@@ -35,17 +24,17 @@ class Job(object):
         earliest_start_time=None,
         assigned_route_id=None,
         assigned_bom_id=None,
-        **kwargs,
-    ):
-        self.job_id = job_id
-        self.priority = priority
-        self.demand_date = demand_date
-        self.quantity = quantity
-        self.job_type = job_type
-        self.earliest_start_time = earliest_start_time  # Material constraint
-        self.assigned_route_id = assigned_route_id  # Route object assigned to this job
-        self.assigned_bom_id = assigned_bom_id
-        self._operations_sequence = []  # List of Operation objects for this job
+        **kwargs: Dict,
+    ) -> None:
+        self.job_id: str = job_id
+        self.priority: int = priority
+        self.demand_date: datetime = demand_date
+        self.quantity: int = quantity
+        self.job_type: str = job_type
+        self.earliest_start_time: datetime = earliest_start_time  # Material constraint
+        self.assigned_route_id: str = assigned_route_id  # Route object assigned to this job
+        self.assigned_bom_id: str = assigned_bom_id
+        self._operations_sequence: List[Operation] = []  # List of Operation objects for this job
 
         for key, value in kwargs.items():
             setattr(self, key, value)
@@ -99,6 +88,16 @@ class JobCollector:
             if job.job_id == job_id:
                 return job
         return None
+
+    def sort_jobs(self, jobs):
+        # Custom sorting function based on priority and continuity
+        def custom_sort(job):
+            priority_weight = (job.priority, job.demand_date)
+            # continuity_weight = -self.calculate_gap_time(job)
+            return priority_weight  # + continuity_weight
+
+        # jobs = sorted(jobs, key=custom_sort, reverse=True)
+        return [i[0] for i in sorted(enumerate(jobs), key=lambda x: custom_sort(x[1]), reverse=False)]
 
     def get_schedule(self):
         schedule = {}

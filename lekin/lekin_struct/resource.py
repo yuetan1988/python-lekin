@@ -3,8 +3,7 @@ Resource/Machine Struct
 """
 
 import math
-
-import pandas as pd
+from typing import Any, Callable, Dict, Generator, List, Optional, Tuple, Type, Union
 
 from lekin.lekin_struct.timeslot import TimeSlot
 
@@ -233,7 +232,7 @@ class ResourceCollector:
             raise StopIteration("Stop")
 
     def add_resource_dict(self, resource: Resource):
-        self.resources.update(resource)
+        self.resources.update({resource.resource_id: resource})
 
     def get_resource_by_id(self, resource_id):
         return self.resources.get(resource_id)

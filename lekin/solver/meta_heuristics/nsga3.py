@@ -1,4 +1,5 @@
 import random
+from typing import Any, Callable, Dict, Generator, List, Optional, Tuple, Type, Union
 
 
 class NSGA3Scheduler:
@@ -18,7 +19,7 @@ class NSGA3Scheduler:
 
     def generate_random_solution(self):
         # Generate a random solution representing start times for operations
-        solution = {}
+        solution: Dict = {}
         for job in self.jobs:
             solution[job] = {}
             for operation in job.route.operations:
