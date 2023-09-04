@@ -3,12 +3,22 @@
 import logging
 import math
 
+from lekin.lekin_struct.job import Job, JobCollector
+from lekin.lekin_struct.operation import Operation
+from lekin.lekin_struct.resource import ResourceCollector
+from lekin.lekin_struct.route import RouteCollector
 from lekin.lekin_struct.timeslot import TimeSlot
 from lekin.solver.construction_heuristics.base import BaseScheduler
 
 
 class BackwardScheduler(object):
-    def __init__(self, job_collector, resource_collector, route_collector=None, **kwargs):
+    def __init__(
+        self,
+        job_collector: JobCollector,
+        resource_collector: ResourceCollector,
+        route_collector: RouteCollector = None,
+        **kwargs,
+    ) -> None:
         self.job_collector = job_collector
         self.resource_collector = resource_collector
         self.route_collector = route_collector
@@ -16,13 +26,13 @@ class BackwardScheduler(object):
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def run(self):
+    def run(self) -> None:
         for i, job in enumerate(self.job_collector.job_list):
             self.scheduling_job(job, self.resource_collector, self.route_collector)
         logging.info("First Scheduling Done")
         return
 
-    def scheduling_job(self, job, resource_collector, route_collector):
+    def scheduling_job(self, job: Job, resource_collector, route_collector: RouteCollector) -> None:
         logging.info(f"\nAssign Job {job.job_id}")
 
         if route_collector is not None:
@@ -63,7 +73,7 @@ class BackwardScheduler(object):
         return
 
     def find_best_resource_and_timeslot_for_operation(
-        self, operation, op_latest_end=None, op_earliest_start=None, **kwargs
+        self, operation: Operation, op_latest_end=None, op_earliest_start=None, **kwargs
     ):
         available_resource = operation.available_resource
 
@@ -81,7 +91,7 @@ class BackwardScheduler(object):
         chosen_hours = list(range(latest_time - math.ceil(operation.processing_time), latest_time + 0))
         return chosen_resource, chosen_hours
 
-    def assign_operation(self, operation, start_time, end_time, resources):
+    def assign_operation(self, operation: Operation, start_time, end_time, resources):
         timeslot = TimeSlot(start_time, end_time)
         self.timeslots.append(timeslot)
         for resource in resources:
@@ -90,7 +100,7 @@ class BackwardScheduler(object):
         # Link operation to scheduled timeslot
         operation.scheduled_timeslot = timeslot
 
-    def select_resources(self, job, operation):
+    def select_resources(self, job: Job, operation: Operation):
         available_slots = self.find_available_timeslots(job, operation)
 
         selected_resources = []
