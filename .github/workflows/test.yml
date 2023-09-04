@@ -81,3 +81,45 @@ jobs:
           flags: cpu, unittest
           name: CPU-coverage
           fail_ci_if_error: false
+
+  docs:
+    name: Test docs build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('docs/requirements_docs.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y pandoc
+          python -m pip install --upgrade pip
+          pip install -r docs/requirements_docs.txt
+        shell: bash
+
+      - name: Build sphinx documentation
+        run: |
+          cd docs
+          make clean
+          make html --debug --jobs 2 SPHINXOPTS="-W"
+
+      - name: Upload built docs
+        uses: actions/upload-artifact@v2
+        with:
+          name: docs-results-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.requires }}
+          path: docs/build/html/
+        # Use always() to always run this step to publish test results when there are test failures
+        if: success()

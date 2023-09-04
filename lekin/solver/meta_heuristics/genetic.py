@@ -3,23 +3,60 @@
 import copy
 import random
 
+from lekin.lekin_struct import JobCollector, ResourceCollector, RouteCollector
+
 
 class GeneticScheduler:
     def __init__(
         self,
-        job_collector=None,
+        job_collector: JobCollector,
+        resource_collector: ResourceCollector,
+        route_collector: RouteCollector = None,
         initial_schedule=None,
         population_size=50,
         generations=1000,
         crossover_rate=0.8,
         mutation_rate=0.2,
+        **kwargs,
     ):
         self.job_collector = job_collector
-        self.initial_schedule = initial_schedule  # 倒排顺排后的初始结果
+        self.initial_schedule = initial_schedule
         self.population_size = population_size
         self.generations = generations
         self.crossover_rate = crossover_rate
         self.mutation_rate = mutation_rate
+
+    def run(self):
+        population = self.initialize_population()
+
+        for generation in range(self.generations):
+            selected_individuals = self.selection(population)
+            new_population = []
+
+            while len(new_population) < self.population_size:
+                parent1 = random.choice(selected_individuals)
+                parent2 = random.choice(selected_individuals)
+
+                if random.random() < self.crossover_rate:
+                    offspring1, offspring2 = self.crossover(parent1, parent2)
+                else:
+                    offspring1, offspring2 = parent1, parent2
+
+                if random.random() < self.mutation_rate:
+                    offspring1 = self.mutation(offspring1)
+                if random.random() < self.mutation_rate:
+                    offspring2 = self.mutation(offspring2)
+
+                new_population.append(offspring1)
+                new_population.append(offspring2)
+
+            population = new_population
+
+        # Find the best solution in the final population
+        best_solution = min(population, key=lambda chromosome: self.fitness(chromosome)[0])
+
+        # Return the best schedule
+        return self.job_collector.create_schedule_from_operations(best_solution)
 
     def initialize_population(self):
         population = []
@@ -59,35 +96,3 @@ class GeneticScheduler:
         # Return the mutated chromosome
         mutated_chromosome = 0
         return mutated_chromosome
-
-    def evolve(self):
-        population = self.initialize_population()
-
-        for generation in range(self.generations):
-            selected_individuals = self.selection(population)
-            new_population = []
-
-            while len(new_population) < self.population_size:
-                parent1 = random.choice(selected_individuals)
-                parent2 = random.choice(selected_individuals)
-
-                if random.random() < self.crossover_rate:
-                    offspring1, offspring2 = self.crossover(parent1, parent2)
-                else:
-                    offspring1, offspring2 = parent1, parent2
-
-                if random.random() < self.mutation_rate:
-                    offspring1 = self.mutation(offspring1)
-                if random.random() < self.mutation_rate:
-                    offspring2 = self.mutation(offspring2)
-
-                new_population.append(offspring1)
-                new_population.append(offspring2)
-
-            population = new_population
-
-        # Find the best solution in the final population
-        best_solution = min(population, key=lambda chromosome: self.fitness(chromosome)[0])
-
-        # Return the best schedule
-        return self.job_collector.create_schedule_from_operations(best_solution)

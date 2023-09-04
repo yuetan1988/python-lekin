@@ -8,6 +8,7 @@ from lekin.lekin_struct.operation import Operation
 from lekin.lekin_struct.resource import ResourceCollector
 from lekin.lekin_struct.route import RouteCollector
 from lekin.lekin_struct.timeslot import TimeSlot
+
 from lekin.solver.construction_heuristics.base import BaseScheduler
 
 
@@ -19,6 +20,7 @@ class BackwardScheduler(object):
         route_collector: RouteCollector = None,
         **kwargs,
     ) -> None:
+
         self.job_collector = job_collector
         self.resource_collector = resource_collector
         self.route_collector = route_collector
@@ -49,7 +51,8 @@ class BackwardScheduler(object):
 
         op_earliest_start = 0  # forward constraint
         op_latest_end = 150  # backward constraint
-        for operation in job.operations[::-1]:  # inverse
+        
+        for operation in job.operations[::-1]:  # inverse for backward
             logging.info(f"\tAssign Operation {operation.operation_id} of Job {job.job_id}")
             chosen_resource, chosen_timeslot_hour = self.find_best_resource_and_timeslot_for_operation(
                 operation, op_latest_end, op_earliest_start
@@ -86,9 +89,11 @@ class BackwardScheduler(object):
                 latest_index = i
                 resource_latest_time = resource_time
 
+        # print(operation.operation_id, operation.processing_time, op_latest_end, resource_latest_time)
         chosen_resource = available_resource[latest_index]
         latest_time = int(min(op_latest_end, resource_latest_time))
-        chosen_hours = list(range(latest_time - math.ceil(operation.processing_time), latest_time + 0))
+        chosen_hours = list(range(latest_time - math.ceil(operation.processing_time), latest_time + 1))
+
         return chosen_resource, chosen_hours
 
     def assign_operation(self, operation: Operation, start_time, end_time, resources):
