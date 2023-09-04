@@ -3,6 +3,7 @@ Calendar for resource Struct
 """
 
 from datetime import datetime, timedelta
+from typing import Any, Callable, Dict, Generator, List, Optional, Tuple, Type, Union
 
 import pandas as pd
 

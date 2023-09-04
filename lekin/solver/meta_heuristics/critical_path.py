@@ -1,6 +1,7 @@
 """Critical path"""
 
 import copy
+from typing import Any, Callable, Dict, Generator, List, Optional, Tuple, Type, Union
 
 
 class CriticalPathScheduler:
@@ -26,7 +27,7 @@ class CriticalPathScheduler:
         return critical_path_schedule
 
     def forward_pass(self):
-        forward_pass_times = {}
+        forward_pass_times: Dict[str, Dict[str, float]] = {}
         for job in self.job_collector.jobs:
             forward_pass_times[job.id] = {}
             for operation in job.route.operations:
@@ -42,7 +43,7 @@ class CriticalPathScheduler:
         return forward_pass_times
 
     def backward_pass(self):
-        backward_pass_times = {}
+        backward_pass_times: Dict[str, Dict[str, float]] = {}
         for job in self.job_collector.jobs:
             backward_pass_times[job.id] = {}
             for operation in reversed(job.route.operations):

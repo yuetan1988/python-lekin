@@ -3,6 +3,7 @@ Gantt
 """
 
 import logging
+from typing import Any, Callable, Dict, Generator, List, Optional, Tuple, Type, Union
 
 from matplotlib import ticker
 import matplotlib.patches as patches

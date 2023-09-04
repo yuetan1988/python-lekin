@@ -6,8 +6,11 @@
 
 from datetime import datetime, timedelta
 import heapq
+from typing import Any, Callable, Dict, Generator, List, Optional, Tuple, Type, Union
 
 import pandas as pd
+
+from lekin.lekin_struct.operation import Operation
 
 
 class CTPSolver(object):
@@ -90,10 +93,10 @@ def get_operation_time_constraint():
 
 
 def find_best_resource_and_timeslot_for_operation(
-    operation, earliest_start_time=None, latest_end_time=None, allowed_conflict=False
+    operation: Operation, earliest_start_time=None, latest_end_time=None, allowed_conflict=False
 ):
     # assign operation
-    resource_timeslots_pq = []  # Create a priority queue to store the possible resource-time slot pairs
+    resource_timeslots_pq: List = []  # Create a priority queue to store the possible resource-time slot pairs
     available_resource = operation.available_resource
     # if operation.required_resource_priority is not None:
     #     required_resource.sort()  # Sort by resource priority
