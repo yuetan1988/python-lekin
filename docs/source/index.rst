@@ -38,6 +38,7 @@ Finite Capacity Planning
    heuristics
    rl
    application
+   demand
    api
    GitHub <https://github.com/LongxingTan/python-lekin>
 

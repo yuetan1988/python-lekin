@@ -145,3 +145,11 @@ class BackwardScheduler(object):
             scored.append((score, resource))
         best = max(scored, key=lambda x: x[0])
         return best[1]
+
+
+class Backward(object):
+    def __init__(self):
+        pass
+
+    def run(self):
+        pass
