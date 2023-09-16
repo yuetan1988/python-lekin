@@ -11,10 +11,12 @@ class Operation:
         operation_id: str,
         operation_name: str,
         quantity: int,
-        processing_time: Union[int, List[int]],
-        pre_time=0,  # setup times
-        post_time=0,
-        lead_time=0,
+        beat_time: Union[int, List[int], float, List[float]],
+        processing_time: Union[int, List[int], float, List[float]],
+        pre_time: float = 0,  # setup times
+        post_time: float = 0,
+        lead_time: float = 0,
+        lag_time: float = 0,
         route_constraint=None,
         available_resource=None,
         available_resource_priority=None,
@@ -26,10 +28,12 @@ class Operation:
         self.operation_id = operation_id
         self.operation_name = operation_name
         self.quantity = quantity
+        self.beat_time = beat_time
         self.processing_time = processing_time
         self.pre_time = pre_time
         self.post_time = post_time
         self.lead_time = lead_time
+        self.lag_time = lag_time
         # self.demand_time = demand_time
         self.route_constraint = route_constraint
         self.available_resource = available_resource

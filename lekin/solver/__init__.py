@@ -109,7 +109,8 @@ def find_best_resource_and_timeslot_for_operation(
         just_in_time_end_time_slot = max([i for i in resource_all_available_end_time if i <= latest_end_time])
         print(latest_end_time, just_in_time_end_time_slot)
 
-        working_hours = (operation.processing_time[i] * operation.quantity) / 60
+        if hasattr(operation.beat_time, "__iter__"):
+            working_hours = (operation.beat_time[i] * operation.quantity) / 60
 
         unoccupied_hours = resource.get_available_time_slots_within_time()
         if unoccupied_hours >= working_hours:

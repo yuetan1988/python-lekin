@@ -39,17 +39,26 @@ SPT—EDD规则
 正推方法确定每个任务的最早开始时间和最早完成时间，逆推方法确定每个任务的最晚完成时间和最晚开始时间。
 
 
-
-
-
 顺排
 -------------
 
 顺排和倒排，和其他规则启发式算法一样，一个工序集一个工序集的排。每排一个工序，工序job完成后，更新机器、job状态、后续job状态。
+顺排对下一道工序的约束是：最早开始时间
+
+.. code-block:: python
+    backward(operations, next_op_start_until, with_material_kitting_constraint, align_with_same_production_line, latest_start_time, latest_end_time) -> remaining_operations: list[operations],
+
+
+.. code-block:: python
+    assign_op(operation, is_critical, direction: str, ) -> chosen_resource, chosen_production_id, chosen_hours,
 
 在顺排中，排的比较紧密的资源往往就是瓶颈资源。
 
 倒排
 ---------------
 
-- 每一个MO最早开始时间初始化：max(ESD, today)。确保开始时间不早于今天
+每一个MO最早开始时间初始化：max(ESD, today)。确保开始时间不早于今天，或不早于资源日历最早开始时间
+倒排对下一道工序的约束是: 最晚结束时间
+
+.. code-block:: python
+    forward(operations, next_op_start_until, with_material_kitting_constraint,  align_with_same_production_line, earliest_start_time, earliest_end_time)
