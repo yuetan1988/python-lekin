@@ -4,6 +4,7 @@ Resource/Machine Struct
 
 import math
 from typing import Any, Callable, Dict, Generator, List, Optional, Tuple, Type, Union
+
 import numpy as np
 import pandas as pd
 
@@ -71,7 +72,6 @@ class Resource:
     def get_latest_available_time(self, duration=None, end=None):
         self.update_continuous_empty_hours()
         return max([i + 1 for (i, v) in enumerate(self.continuous_empty_hours[:end]) if v >= duration])
-
 
     def update_continuous_empty_hours(self):
         if len(self.available_hours) != len(self._available_timeslots):
