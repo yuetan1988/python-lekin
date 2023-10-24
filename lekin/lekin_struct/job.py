@@ -34,6 +34,7 @@ class Job(object):
         self.earliest_start_time: datetime = earliest_start_time  # Material constraint
         self.assigned_route_id: str = assigned_route_id  # Route object assigned to this job
         self.assigned_bom_id: str = assigned_bom_id
+        self.current_operation_index: int = 0  # Record the current processing operation
         self._operations_sequence: List[Operation] = []  # List of Operation objects for this job
 
         for key, value in kwargs.items():
@@ -45,6 +46,12 @@ class Job(object):
     @property
     def operations(self):
         return self._operations_sequence
+
+    def ger_next_operation(self):
+        if self.current_operation_index < len(self._operations_sequence):
+            return self._operations_sequence[self.current_operation_index]
+        else:
+            return None
 
     @operations.setter
     def operations(self, operations_sequence):

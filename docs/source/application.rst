@@ -25,6 +25,14 @@ BOM: Bill Of Materials
 - 物料中心
 
 
+建模
+----------
+
+Activities represent operations with time and resource requirements
+Resources have calendars defining availability
+Demand represents customer orders to fulfill
+
+
 过程
 ----------
 

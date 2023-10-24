@@ -58,6 +58,9 @@ class Operation:
         # Calculate the granularity metric based on processing time and available time slot
         pass
 
+    def is_finished(self):
+        return self.assigned_resource is not None
+
     def __str__(self):
         return f"{self.operation_id}-{self.operation_name}"
 
