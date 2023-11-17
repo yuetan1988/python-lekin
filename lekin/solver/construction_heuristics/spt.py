@@ -10,9 +10,8 @@ from lekin.solver.construction_heuristics.base import BaseScheduler
 
 class SPTScheduler(object):
     def __init__(self):
-        self.time = {}
-        self.waiting_operations = {}
-        self.current_time_on_machines = {}
+        self.time = {}  # global时间队列
+        self.waiting_operations = {}  # 记录每个机器的任务等待队列
         self.jobs_list_to_export = []
 
     def setup(self, job_list: List, machine_list: List):

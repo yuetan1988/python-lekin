@@ -47,6 +47,9 @@ subject to:
 
 .. math:: \alpha{}_t(i) = P(O_1, O_2, … O_t, q_t = S_i \lambda{})
 
+Flexible Job-Shop Scheduling problem（FJSP）包含两个任务
+- Machine assignment: 选择机器
+- Operation sequencing：工序顺序
 
 
 Finite Capacity Planning
