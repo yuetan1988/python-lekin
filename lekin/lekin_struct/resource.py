@@ -23,6 +23,7 @@ class Resource:
         self.assigned_operations = []
         self.assigned_time_slots = []
         self.assigned_hours = []
+        self.pending_list = []  # 临时缓冲区
         self.changeover_number = None  # number of times
         self.changeover_time = None  # total time costs
 

@@ -9,14 +9,13 @@ class FCFSScheduler:
     """
     - 初始化，记录各个机器前的任务等待序列。模拟时间进度
     """
+
     def __init__(self, jobs, routes):
         self.jobs = jobs
         self.routes = routes
 
     def init(self):
-        """
-
-        """
+        """ """
         pass
 
     def schedule_job(self, job):

@@ -47,6 +47,7 @@ class Operation:
         self.earliest_end_time = None
         self.latest_end_time = None
 
+        self.statue = "none"  # none -> waiting -> pending -> done
         self.assigned_resource = None  # Track the assigned resource
         self.assigned_time_slot = None  # Track the assigned time slot
 
