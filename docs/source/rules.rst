@@ -60,5 +60,12 @@ SPT—EDD规则
 每一个MO最早开始时间初始化：max(ESD, today)。确保开始时间不早于今天，或不早于资源日历最早开始时间
 倒排对下一道工序的约束是: 最晚结束时间
 
+倒排
+- 从业务上可以减少库存, just-in-time
+- 带来的结果是不连续
+- 影响连续排产的判断
+- 考虑物料齐套时，导致倒排可能需要一次次推倒重来
+
+
 .. code-block:: python
     forward(operations, next_op_start_until, with_material_kitting_constraint,  align_with_same_production_line, earliest_start_time, earliest_end_time)

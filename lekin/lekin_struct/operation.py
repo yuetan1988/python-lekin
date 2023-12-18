@@ -1,5 +1,8 @@
 """
 Operation Struct
+op: 单个工单或新增需求的某一道工序
+GroupOP: 单个需求或多个需求必须在一起的一道工序
+MaterialOP: 同一物料多个需求的一道工序
 """
 
 from typing import Any, Callable, Dict, List, Optional, Tuple, Union

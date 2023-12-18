@@ -32,6 +32,8 @@ class Job(object):
         self.quantity: int = quantity
         self.job_type: str = job_type
         self.earliest_start_time: datetime = earliest_start_time  # Material constraint
+        # cached scheduling result until the whole job is finished
+        self.cached_scheduling: dict = {}
         self.assigned_route_id: str = assigned_route_id  # Route object assigned to this job
         self.assigned_bom_id: str = assigned_bom_id
         self.current_operation_index: int = 0  # Record the current processing operation
@@ -52,6 +54,14 @@ class Job(object):
             return self._operations_sequence[self.current_operation_index]
         else:
             return None
+
+    def assign_cached_scheduling(self):
+        """assign all cached scheduling officially while all ops are fine"""
+        pass
+
+    def clear_cached_scheduling(self, all, start, dir):
+        """clear the cached scheduling result"""
+        pass
 
     @operations.setter
     def operations(self, operations_sequence):
