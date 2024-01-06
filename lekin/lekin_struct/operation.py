@@ -69,6 +69,29 @@ class Operation:
         return f"{self.operation_id}-{self.operation_name}"
 
 
+class JobOperations(object):
+    """Operations from same job"""
+    def __init__(self, operation_list):
+        pass
+
+    @property
+    def job(self):
+        return
+
+
+class MaterialOperation(object):
+    """
+    排产时, MaterialOperation, JobOperation, Operation是三层抽象结构
+    resource.assigned_material_op = list[MaterialOperation]
+    """
+    def __init__(self, job_operation_list):
+        pass
+
+    @property
+    def material(self):
+        return
+
+
 class OperationCollector:
     def __init__(self):
         self.operation_list = []  # List to store Operation objects

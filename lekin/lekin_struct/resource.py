@@ -45,6 +45,18 @@ class Resource:
     def available_hours(self, available_hours):
         self._available_hours = available_hours
 
+    def init_job_op_from_op(self):
+        """op-> job_op"""
+        pass
+
+    def init_material_op_from_group_op(self):
+        """group_op-> material_op"""
+        pass
+
+    def update_op_from_material_op(self):
+        """material_op -> op"""
+        pass
+
     def get_available_timeslot_for_op(self, start=None, end=None, periods=None, freq="1H", forward=True):
         self.update_continuous_empty_hours()
         select_hours = [i for i in self.available_hours if i <= end]
