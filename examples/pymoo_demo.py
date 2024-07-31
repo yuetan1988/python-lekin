@@ -5,8 +5,6 @@ Use pymoo to do the job shop scheduling problem
 每个任务有自己的需求日期
 
 目标为延误日期最少，同时换型最少
-
-做的事情就是把这个序列的permutation优化一下
 """
 
 from typing import Union
