@@ -1,3 +1,4 @@
+import argparse
 import json
 import logging
 
@@ -66,24 +67,32 @@ def prepare_data(file_path="./data/k1.json"):
             route.operations_sequence = operations_sequence
             route_collector.add_route(route)
 
-            job_collector.add_job(Job(job_id=ro_id, assigned_route_id=ro_id))
+            job_collector.add_job(Job(job_id=str(ro_id), assigned_route_id=ro_id))
 
         # print(resources)
         # print(routes)
     return job_collector, resource_collector, route_collector
 
 
-def run_scheduling(job_collector, resource_collector, route_collector):
-    # scheduler = BackwardScheduler(job_collector, resource_collector, route_collector)
-    scheduler = ForwardScheduler(job_collector, resource_collector, route_collector)
+def run_scheduling(job_collector, resource_collector, route_collector, use_model="forward"):
+    if use_model == "forward":
+        scheduler = ForwardScheduler(job_collector, resource_collector, route_collector)
+    elif use_model == "backward":
+        scheduler = BackwardScheduler(job_collector, resource_collector, route_collector)
+    else:
+        raise ValueError
 
     scheduler.run()
     return
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--use_model", type=str, default="forward")
+    args = parser.parse_args()
+
     job_collector, resource_collector, route_collector = prepare_data(file_path="./data/k1.json")
-    run_scheduling(job_collector, resource_collector, route_collector)
+    run_scheduling(job_collector, resource_collector, route_collector, use_model=args.use_model)
 
     scheduling_res = get_scheduling_res_from_all_jobs(job_collector)
     print(scheduling_res)
