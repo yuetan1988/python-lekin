@@ -59,7 +59,9 @@ jobs:
 
       - name: Install dependencies
         shell: bash
-        run: pip install --no-cache-dir -r requirements.txt
+        run: |
+          pip install --no-cache-dir -r requirements.txt
+          pip install --extra-index-url https://pypi.org/simple --no-cache-dir coverage pytest codecov-cli>=0.4.1
 
       - name: Run unittest
         shell: bash
