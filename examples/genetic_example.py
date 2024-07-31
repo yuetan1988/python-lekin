@@ -52,7 +52,6 @@ class DataReader(object):
         """==================== main code ==============================="""
         """----- generate initial population -----"""
         Tbest = 999999999999999
-        best_list, best_obj = [], []
         population_list = []
         makespan_record = []
         for i in range(population_size):
@@ -96,10 +95,11 @@ class DataReader(object):
             """----------repairment-------------"""
             for m in range(population_size):
                 job_count = {}
+                # 'larger' record jobs appear in the chromosome more than m times, and 'less' records less than m times
                 larger, less = (
                     [],
                     [],
-                )  # 'larger' record jobs appear in the chromosome more than m times, and 'less' records less than m times.
+                )
                 for i in range(num_jobs):
                     if i in offspring_list[m]:
                         count = offspring_list[m].count(i)
@@ -221,13 +221,13 @@ class GeneticOPT(object):
         )
 
     def run(self):
-        start_time = time.time()
         while True:
             np.random.seed(int(time.time()))
 
 
 def main():
     data_reader = DataReader()
+    print(data_reader)
 
     # job_collector = data_reader.get_job_collector()
     # resource_collector = data_reader.get_resource_collector()

@@ -12,7 +12,7 @@ from lekin.lekin_struct import (
     Route,
     RouteCollector,
 )
-from lekin.solver.construction_heuristics import ForwardScheduler, BackwardScheduler
+from lekin.solver.construction_heuristics import BackwardScheduler, ForwardScheduler
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
 
