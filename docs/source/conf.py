@@ -137,8 +137,8 @@ def setup(app: Sphinx):
 
 
 # autosummary
-autosummary_generate = True
-shutil.rmtree(SOURCE_PATH.joinpath("api"), ignore_errors=True)
+# autosummary_generate = True
+# shutil.rmtree(SOURCE_PATH.joinpath("api"), ignore_errors=True)
 
 
 # copy changelog

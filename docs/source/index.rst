@@ -14,7 +14,7 @@ python-lekin documentation
 
 
 车间排产快速入门
----------------
+-----------------------
 
 排产是一个分配任务，将有限的资源分配给需求。因此需求需要有优先级，约束主要有产能约束与物料约束。产能约束，将订单中的成品按工艺路线分解为工序，而每一道工序有对应的生产机器；物料约束，将订单的成品按BOM(bill of materials)展开为原材料需求，每一道工序开始前需要对应原材料齐套。
 
@@ -45,12 +45,11 @@ Finite Capacity Planning
    heuristics
    application
    demand
-   api
    GitHub <https://github.com/LongxingTan/python-lekin>
 
 
 Indices and tables
-==================
+=========================
 
 * :ref:`genindex`
 * :ref:`modindex`

@@ -82,7 +82,7 @@ class GeneticOPT(object):
         # ms_sequence: A list of resource IDs representing the machine sequence
         return
 
-    def _init_os(self):
+    def _init_os(self, jobs, resources):
         # os_sequence: A list of operation IDs representing the operation sequence.
         os_sequence = []
         ms_sequence = []
@@ -127,20 +127,20 @@ class GeneticOPT(object):
         mutated_chromosome = 0
         return mutated_chromosome
 
-    def decode(self):
-        scheduling_result = SchedulingResult()
-        resource_availability = {
-            res.resource_id: 0 for res in resources
-        }  # Tracks next available time for each resource
-
-        for op_id, res_id in zip(os_sequence, ms_sequence):
-            op = operations[op_id]
-            resource_ready_time = resource_availability[res_id]
-            start_time = max(resource_ready_time, op.earliest_start)
-            end_time = start_time + op.processing_time
-
-            # Update the schedule and resource availability
-            scheduling_result.schedule[op_id] = (res_id, start_time, end_time)
-            resource_availability[res_id] = end_time
-
-        return scheduling_result
+    # def decode(self):
+    #     scheduling_result = SchedulingResult()
+    #     resource_availability = {
+    #         res.resource_id: 0 for res in resources
+    #     }  # Tracks next available time for each resource
+    #
+    #     for op_id, res_id in zip(os_sequence, ms_sequence):
+    #         op = operations[op_id]
+    #         resource_ready_time = resource_availability[res_id]
+    #         start_time = max(resource_ready_time, op.earliest_start)
+    #         end_time = start_time + op.processing_time
+    #
+    #         # Update the schedule and resource availability
+    #         scheduling_result.schedule[op_id] = (res_id, start_time, end_time)
+    #         resource_availability[res_id] = end_time
+    #
+    #     return scheduling_result

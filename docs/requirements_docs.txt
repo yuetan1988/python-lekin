@@ -11,3 +11,5 @@ sphinx-autobuild
 
 pandas
 numpy
+ortools
+tensorflow

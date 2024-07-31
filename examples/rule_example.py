@@ -2,17 +2,8 @@ import json
 import logging
 
 from lekin.dashboard.gantt import get_scheduling_res_from_all_jobs, plot_gantt_chart
-from lekin.lekin_struct import (
-    Job,
-    JobCollector,
-    Operation,
-    OperationCollector,
-    Resource,
-    ResourceCollector,
-    Route,
-    RouteCollector,
-)
-from lekin.solver.construction_heuristics import ForwardScheduler, BackwardScheduler
+from lekin.lekin_struct import Job, JobCollector, Operation, Resource, ResourceCollector, Route, RouteCollector
+from lekin.solver.construction_heuristics import BackwardScheduler, ForwardScheduler
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
 
@@ -34,10 +25,11 @@ def prepare_data(file_path="./data/k1.json"):
             re_name = re["machineName"]
             re_id = int(re_name.replace("M", ""))
             resource = Resource(resource_id=re_id, resource_name=re_name)
+            resource.available_hours = list(range(1, 100))
             resource_collector.add_resource_dict(resource)
 
-        # print([i.resource_id for i in resource_collector.get_all_resources()])
-        # print(resource_collector.get_all_resources()[0].available_hours)
+        print([i.resource_id for i in resource_collector.get_all_resources()])
+        print(resource_collector.get_all_resources()[0].available_hours)
 
         # parse the job and route
         for ro in routes:
