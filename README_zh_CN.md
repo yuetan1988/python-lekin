@@ -40,6 +40,8 @@
 
 ## 快速入门
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1H3o6tqJKr1yTvPNI9t0yggbb7BzE_iPz?usp=sharing)
+
 ### 安装
 
 ``` shell
