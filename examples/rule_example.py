@@ -26,7 +26,7 @@ def prepare_data(file_path="./data/k1.json"):
             re_name = re["machineName"]
             re_id = int(re_name.replace("M", ""))
             resource = Resource(resource_id=re_id, resource_name=re_name)
-            resource.available_hours = list(range(1, 100))
+            resource.available_hours = list(range(1, 200))
             resource_collector.add_resource_dict(resource)
 
         print([i.resource_id for i in resource_collector.get_all_resources()])
@@ -67,7 +67,7 @@ def prepare_data(file_path="./data/k1.json"):
             route.operations_sequence = operations_sequence
             route_collector.add_route(route)
 
-            job_collector.add_job(Job(job_id=str(ro_id), assigned_route_id=ro_id))
+            job_collector.add_job(Job(job_id=ro_id, assigned_route_id=ro_id))
 
         # print(resources)
         # print(routes)
@@ -88,7 +88,7 @@ def run_scheduling(job_collector, resource_collector, route_collector, use_model
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--use_model", type=str, default="forward")
+    parser.add_argument("--use_model", type=str, default="backward")
     args = parser.parse_args()
 
     job_collector, resource_collector, route_collector = prepare_data(file_path="./data/k1.json")
