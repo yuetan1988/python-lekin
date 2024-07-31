@@ -16,7 +16,7 @@
 [codeql-url]: https://github.com/longxingtan/python-lekin/actions/workflows/codeql-analysis.yml
 
 <h1 align="center">
-<img src="./docs/source/_static/logo.svg" width="490" align=center/>
+<img src="./docs/source/_static/logo.svg" width="400" align=center/>
 </h1><br>
 
 [![LICENSE][license-image]][license-url]
@@ -31,7 +31,6 @@
 
 **python-lekin** is a rapid-to-implement and easy-to-use Flexible Job Shop Scheduler Library, named after and inspired by [Lekin](https://web-static.stern.nyu.edu/om/software/lekin/). As a core function in **APS (advanced planning and scheduler)**, it helps manufacturers optimize the allocation of materials and production capacity optimally to balance demand and capacity.
 
-- accelerate by 
 - Changeover Optimization
 - Ready for demo, research and maybe production
 
@@ -54,7 +53,7 @@
 **Installation**
 
 ``` shell
-$ pip install lekin
+pip install lekin
 ```
 
 **Usage**
