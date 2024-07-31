@@ -1,4 +1,4 @@
-Rules
+规则排产
 ============
 
 分为rule-based、event-based、resource-based两种思路。
