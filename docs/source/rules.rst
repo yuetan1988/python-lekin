@@ -46,10 +46,12 @@ SPT—EDD规则
 顺排对下一道工序的约束是：最早开始时间
 
 .. code-block:: python
+
     backward(operations, next_op_start_until, with_material_kitting_constraint, align_with_same_production_line, latest_start_time, latest_end_time)
 
 
 .. code-block:: python
+
     assign_op(operation, is_critical, direction: str)
 
 在顺排中，排的比较紧密的资源往往就是瓶颈资源。
@@ -68,4 +70,5 @@ SPT—EDD规则
 
 
 .. code-block:: python
+
     forward(operations, next_op_start_until, with_material_kitting_constraint,  align_with_same_production_line, earliest_start_time, earliest_end_time)
