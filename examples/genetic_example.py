@@ -17,7 +17,6 @@ from lekin.lekin_struct import (
     Route,
     RouteCollector,
 )
-from lekin.solver.construction_heuristics import EPSTScheduler, LPSTScheduler
 from lekin.solver.meta_heuristics.genetic import GeneticScheduler
 
 logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
@@ -140,7 +139,7 @@ class DataReader(object):
                         m_chg[num_mutation_jobs - 1]
                     ] = t_value_last  # move the value of the first mutation position to the last mutation position
 
-            """--------fitness value(calculate makespan)-------------"""
+            """--------fitness value(calculate make span)-------------"""
             total_chromosome = copy.deepcopy(parent_list) + copy.deepcopy(
                 offspring_list
             )  # parent and offspring chromosomes combination
