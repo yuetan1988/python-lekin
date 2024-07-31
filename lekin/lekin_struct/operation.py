@@ -14,7 +14,6 @@ class Operation:
         operation_id: str,
         operation_name: str,
         quantity: int,
-        #  beat_time: Union[int, List[int], float, List[float]],
         processing_time: Union[int, List[int], float, List[float]],
         pre_time: float = 0,  # setup times
         post_time: float = 0,
@@ -31,13 +30,11 @@ class Operation:
         self.operation_id = operation_id
         self.operation_name = operation_name
         self.quantity = quantity
-        # self.beat_time = beat_time
         self.processing_time = processing_time
         self.pre_time = pre_time
         self.post_time = post_time
         self.lead_time = lead_time
         self.lag_time = lag_time
-        # self.demand_time = demand_time
         self.route_constraint = route_constraint
         self.available_resource = available_resource
         self.available_resource_priority = available_resource_priority
