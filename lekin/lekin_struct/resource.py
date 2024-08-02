@@ -109,7 +109,7 @@ class Resource:
         for j, value in enumerate(lists):
             if value > input_value:
                 return j
-        return None  # If no value is larger than the input
+        return None
 
     def find_last_index_larger(self, input_value, lists):
         lists = lists[::-1]

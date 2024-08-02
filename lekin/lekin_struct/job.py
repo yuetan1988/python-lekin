@@ -79,13 +79,9 @@ class Job(object):
 
 class JobCollector:
     def __init__(self):
-        self.job_list = []  # List to store Job objects
+        self.job_list = []
         self.color_dict = dict()  # List to store colors for job
         self.index = -1
-        # self.route_list = []
-        # self.operation_list = []
-        # self.resource_list = []
-        # self.time_slot_list = []
 
     def __iter__(self):
         return self

@@ -191,6 +191,7 @@ class DataReader(object):
                         if selection_rand[i] > qk[j] and selection_rand[i] <= qk[j + 1]:
                             population_list[i] = copy.deepcopy(total_chromosome[j + 1])
                             break
+
             """----------comparison----------"""
             for i in range(population_size * 2):
                 if chrom_fit[i] < Tbest_now:
@@ -201,6 +202,7 @@ class DataReader(object):
                 sequence_best = copy.deepcopy(sequence_now)
 
             makespan_record.append(Tbest)
+
         """----------result----------"""
         print("optimal sequence", sequence_best)
         print("optimal value:%f" % Tbest)

@@ -2,7 +2,7 @@
 [license-url]: https://opensource.org/licenses/Apache-2.0
 [pypi-image]: https://badge.fury.io/py/lekin.svg
 [pypi-url]: https://pypi.python.org/pypi/lekin
-[pepy-image]: https://pepy.tech/badge/lekin/month
+[pepy-image]: https://pepy.tech/badge/lekin
 [pepy-url]: https://pepy.tech/project/lekin
 [build-image]: https://github.com/LongxingTan/python-lekin/actions/workflows/test.yml/badge.svg?branch=master
 [build-url]: https://github.com/LongxingTan/python-lekin/actions/workflows/test.yml?query=branch%3Amaster
@@ -29,7 +29,8 @@
 
 **[Documentation](https://python-lekin.readthedocs.io)** | **[Tutorials](https://python-lekin.readthedocs.io/en/latest/tutorials.html)** | **[Release Notes](https://python-lekin.readthedocs.io/en/latest/CHANGELOG.html)** | **[中文](https://github.com/LongxingTan/python-lekin/blob/master/README_zh_CN.md)**
 
-**python-lekin** is a rapid-to-implement and easy-to-use Flexible Job Shop Scheduler Library, named after and inspired by [Lekin](https://web-static.stern.nyu.edu/om/software/lekin/). As a core function in **APS (advanced planning and scheduler)**, it helps manufacturers optimize the allocation of materials and production capacity optimally to balance demand and capacity.
+**python-lekin** is a Flexible Job Shop Scheduler Library, named after [Lekin](https://web-static.stern.nyu.edu/om/software/lekin/).
+As a core function in **APS (advanced planning and scheduler)**, it helps manufacturers optimize the allocation of materials and production capacity optimally to balance demand and capacity.
 
 - Changeover Optimization
 - Ready for demo, research and maybe production
@@ -49,6 +50,8 @@
 
 
 ## Tutorial
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1H3o6tqJKr1yTvPNI9t0yggbb7BzE_iPz?usp=sharing)
 
 **Installation**
 

@@ -1,4 +1,4 @@
-Rules
+规则排产
 ============
 
 分为rule-based、event-based、resource-based两种思路。
@@ -72,3 +72,14 @@ SPT—EDD规则
 .. code-block:: python
 
     forward(operations, next_op_start_until, with_material_kitting_constraint,  align_with_same_production_line, earliest_start_time, earliest_end_time)
+
+
+
+终局
+----------------------
+
+规则启发在排产中的应用，进行足够的抽象后，灵活使用多种方法的结合。
+
+一批次可开始的。剩余未开始的
+- 那么，可开始的是否一定要比未开始的先开始呢？其实不是
+- 那么通过工序图的依赖关系，其实给定了每个工序的最早开始时间约束。甚至不是具体的时间，而是一个变量之间的
