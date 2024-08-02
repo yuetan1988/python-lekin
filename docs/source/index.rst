@@ -41,9 +41,9 @@ Finite Capacity Planning
    :maxdepth: 2
    :caption: Contents:
 
-   规则排产
-   启发式排产
-   应用
+   rules
+   heuristics
+   application
    GitHub <https://github.com/LongxingTan/python-lekin>
 
 
