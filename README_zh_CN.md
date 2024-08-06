@@ -1,6 +1,6 @@
 [license-image]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
 [license-url]: https://opensource.org/licenses/Apache-2.0
-[pypi-image]: https://badge.fury.io/py/python-lekin.svg
+[pypi-image]: https://badge.fury.io/py/lekin.svg
 [pypi-url]: https://pypi.python.org/pypi/python-lekin
 [pepy-image]: https://pepy.tech/badge/lekin/month
 [pepy-url]: https://pepy.tech/project/lekin
@@ -68,10 +68,12 @@ scheduler.draw()
 - 按BOM拆分物料
 
 ### 数据准备
+
 - Job
 - Task
 - Machine
 - Route
+
 
 ## 引用
 

@@ -1,5 +1,6 @@
 class SolverConfig:
-    def __init__(self, entity_selector=None, move_selector=None, termination=None):
+    def __init__(self, optimization_strategy, entity_selector=None, move_selector=None, termination=None):
+        self.optimization_strategy = optimization_strategy
         self.entity_selector = entity_selector
         self.move_selector = move_selector
         self.termination = termination

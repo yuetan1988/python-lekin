@@ -215,8 +215,10 @@ Planning entity
 - JobAssignment
 
 Solution
-- Jobschedule
+- JobSchedule
 
 3. 约束
+- OptaPlanner的约束流API（Constraint Streams API）是一种声明式的API
+- 软约束：目标，硬约束：约束
 
 4. Solver
