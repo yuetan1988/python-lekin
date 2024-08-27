@@ -202,6 +202,8 @@ Material_op一开始，解析爬坡配置, 得到按小时或按数量的map, �
 
 车间排产
 ------------------
+0. 定义模型
+- Multi-Mode Resource Constrained Project Scheduling Problem (MRCPSP)
 
 1. 准备环境
 

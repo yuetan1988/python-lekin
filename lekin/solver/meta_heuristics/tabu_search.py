@@ -1,10 +1,89 @@
 """
 Local search
 https://towardsdatascience.com/optimization-techniques-tabu-search-36f197ef8e25
+https://www.optaplanner.org/docs/optaplanner/latest/local-search/local-search.html
 """
 
+from collections import deque
 import math
 import random
+from typing import Callable, List, Tuple
+
+
+def evaluate(solution):
+    # Example evaluation function (e.g., sum of elements)
+    return sum(solution)
+
+
+def neighborhood_function(solution):
+    # Example neighborhood generation (e.g., swap two elements)
+    neighbors = []
+    for i in range(len(solution)):
+        for j in range(i + 1, len(solution)):
+            neighbor = solution[:]
+            neighbor[i], neighbor[j] = neighbor[j], neighbor[i]
+            neighbors.append(neighbor)
+    return neighbors
+
+
+class TabuSearch:
+    def __init__(
+        self,
+        initial_solution: List[int],
+        evaluate: Callable[[List[int]], float],
+        neighborhood_function: Callable[[List[int]], List[List[int]]],
+        tabu_tenure: int = 10,
+        max_iterations: int = 1000,
+        aspiration_criteria: Callable[[float, float], bool] = None,
+    ):
+        """
+        Initialize the Tabu Search algorithm.
+
+        :param initial_solution: The starting solution.
+        :param evaluate: A function that evaluates a solution and returns its cost.
+        :param neighborhood_function: A function that generates neighboring solutions.
+        :param tabu_tenure: The number of iterations a move should remain in the tabu list.
+        :param max_iterations: Maximum number of iterations to run the algorithm.
+        :param aspiration_criteria: A function that allows overriding the tabu status (optional).
+        """
+        self.current_solution = initial_solution
+        self.evaluate = evaluate
+        self.neighborhood_function = neighborhood_function
+        self.tabu_list = deque(maxlen=tabu_tenure)
+        self.max_iterations = max_iterations
+        self.best_solution = initial_solution
+        self.best_cost = evaluate(initial_solution)
+        self.aspiration_criteria = aspiration_criteria
+
+    def search(self) -> Tuple[List[int], float]:
+        """
+        Execute the Tabu Search algorithm.
+
+        :return: The best solution found and its cost.
+        """
+        for iteration in range(self.max_iterations):
+            neighbors = self.neighborhood_function(self.current_solution)
+            best_neighbor = None
+            best_neighbor_cost = float("inf")
+
+            for neighbor in neighbors:
+                if neighbor in self.tabu_list:
+                    if self.aspiration_criteria and self.aspiration_criteria(self.evaluate(neighbor), self.best_cost):
+                        continue  # Skip tabu move unless it meets the aspiration criteria
+                cost = self.evaluate(neighbor)
+                if cost < best_neighbor_cost:
+                    best_neighbor = neighbor
+                    best_neighbor_cost = cost
+
+            if best_neighbor is not None:
+                self.current_solution = best_neighbor
+                self.tabu_list.append(best_neighbor)
+
+                if best_neighbor_cost < self.best_cost:
+                    self.best_solution = best_neighbor
+                    self.best_cost = best_neighbor_cost
+
+        return self.best_solution, self.best_cost
 
 
 class TabuSearchScheduler:
@@ -71,3 +150,13 @@ class TabuSearchScheduler:
             )
             max_end_time = max(max_end_time, end_time)
         return max_end_time
+
+
+if __name__ == "__main__":
+    initial_solution = [random.randint(0, 10) for _ in range(5)]
+    print(initial_solution)
+    tabu_search = TabuSearch(initial_solution, evaluate, neighborhood_function)
+    best_solution, best_cost = tabu_search.search()
+
+    print("Best Solution:", best_solution)
+    print("Best Cost:", best_cost)
