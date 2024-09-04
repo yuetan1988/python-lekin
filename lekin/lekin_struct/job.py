@@ -17,6 +17,7 @@ class Job(object):
     def __init__(
         self,
         job_id: str,
+        job_name: Optional[str] = None,
         priority: int = None,
         quantity: int = None,
         demand_date: datetime = None,
@@ -27,6 +28,7 @@ class Job(object):
         **kwargs: Dict,
     ) -> None:
         self.job_id: str = job_id
+        self.job_name = job_name
         self.priority: int = priority
         self.demand_date: datetime = demand_date
         self.quantity: int = quantity
@@ -75,6 +77,9 @@ class Job(object):
 
     def __str__(self):
         return f"{self.job_id}"
+
+    def __repr__(self):
+        return f"Project(id={self.id}, name={self.name})"
 
 
 class JobCollector:

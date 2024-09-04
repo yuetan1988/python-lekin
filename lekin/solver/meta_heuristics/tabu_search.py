@@ -7,7 +7,10 @@ https://www.optaplanner.org/docs/optaplanner/latest/local-search/local-search.ht
 from collections import deque
 import math
 import random
-from typing import Callable, List, Tuple
+from typing import TYPE_CHECKING, Any, Callable, List, Optional, Tuple
+
+# if TYPE_CHECKING:
+#     from
 
 
 def evaluate(solution):
@@ -24,6 +27,54 @@ def neighborhood_function(solution):
             neighbor[i], neighbor[j] = neighbor[j], neighbor[i]
             neighbors.append(neighbor)
     return neighbors
+
+
+class Step:
+    def __init__(self, description: str, change: Any, affected_elements: Optional[List[Any]] = None):
+        self.description = description
+        self.change = change
+        self.affected_elements = affected_elements if affected_elements else []
+
+    def apply(self, solution):
+        """
+        Apply this step's change to the given solution.
+
+        :param solution: The current solution to which the step should be applied.
+        :return: The new solution after applying this step.
+        """
+        job = self.change["job"]
+        from_slot = self.change["from_slot"]
+        to_slot = self.change["to_slot"]
+
+        # Remove the job from its current slot
+        if job in solution.job_to_slot and solution.job_to_slot[job] == from_slot:
+            solution.remove_job_from_slot(job)
+
+        # Assign the job to the new slot
+        solution.assign_job_to_slot(job, to_slot)
+        return solution
+
+    def undo(self, solution):
+        """
+        Undo the change applied by this step.
+
+        :param solution: The solution to revert the change.
+        :return: The solution after reverting the step.
+        """
+        job = self.change["job"]
+        from_slot = self.change["from_slot"]
+        to_slot = self.change["to_slot"]
+
+        # Remove the job from the new slot
+        if job in solution.job_to_slot and solution.job_to_slot[job] == to_slot:
+            solution.remove_job_from_slot(job)
+
+        # Reassign the job to the original slot
+        solution.assign_job_to_slot(job, from_slot)
+        return solution
+
+    def __repr__(self):
+        return f"Step(description={self.description}, change={self.change})"
 
 
 class TabuSearch:

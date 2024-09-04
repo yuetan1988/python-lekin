@@ -10,3 +10,11 @@ class TerminationConfig:
     def __init__(self, seconds_spent_limit=None, max_iterations=None):
         self.seconds_spent_limit = seconds_spent_limit
         self.max_iterations = max_iterations
+
+
+class Message:
+    def __init__(self, message: str):
+        self.message = message
+
+    def __repr__(self):
+        return f"ErrorMessage(message={self.message})"
