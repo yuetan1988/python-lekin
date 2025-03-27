@@ -5,7 +5,11 @@ GroupOP: 单个需求或多个需求必须在一起的一道工序
 MaterialOP: 同一物料多个需求的一道工序
 """
 
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple, Union
+
+if TYPE_CHECKING:
+    from .allocation import Allocation
+    from .execution_mode import ExecutionMode
 
 
 class Operation:
@@ -51,6 +55,9 @@ class Operation:
         self.assigned_resource = None  # Track the assigned resource
         self.assigned_time_slot = None  # Track the assigned time slot
 
+        self.execution_modes: List["ExecutionMode"] = []
+        self.allocations: List["Allocation"] = []
+
         for key, value in kwargs.items():
             setattr(self, key, value)
 
@@ -61,6 +68,15 @@ class Operation:
 
     def is_finished(self):
         return self.assigned_resource is not None
+
+    def add_execution_mode(self, mode: "ExecutionMode"):
+        self.execution_modes.append(mode)
+
+    def add_allocation(self, allocation: "Allocation"):
+        self.allocations.append(allocation)
+
+    def __repr__(self):
+        return f"Operation(id={self.operation_id}, name={self.operation_name})"
 
     def __str__(self):
         return f"{self.operation_id}-{self.operation_name}"

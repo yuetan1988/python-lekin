@@ -42,3 +42,6 @@ class TimeSlot(object):
             return overlap_hours
         else:
             return 0
+
+    def __repr__(self):
+        return f"TimeSlot(start_date={self.start_date}, end_date={self.end_date})"

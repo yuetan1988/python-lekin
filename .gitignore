@@ -90,3 +90,4 @@ coverage.xml
 /reference/jobshoppro/*
 /business/*
 /examples/*.xlsx
+~$*.xlsx

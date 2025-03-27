@@ -234,6 +234,9 @@ class Resource:
     def __lt__(self, other):
         return self.resource_id < other.resource_id
 
+    def __repr__(self):
+        return f"Resource(id={self.id}, name={self.name})"
+
 
 class ResourceCollector:
     def __init__(self):
